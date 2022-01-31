@@ -9,6 +9,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
+  signOut
 } from 'firebase/auth';
 
 // Your web app's Firebase configuration
@@ -25,10 +26,8 @@ const config = {
 // Initialize Firebase
 initializeApp(config);
 
-const auth = getAuth();
-const provider = new GoogleAuthProvider();
-
-// Export firestore database
+export const auth = getAuth();
+export const provider = new GoogleAuthProvider();
 export const firestore = getFirestore();
 
 // Sign in with Google Popup
@@ -43,29 +42,29 @@ export const signInWithGoogle = () =>
     })
     .catch((error) => GoogleAuthProvider.credentialFromError(error));
 
-// Return user's current status
-export function useAuth() {
-  const [currentUser, setCurrentUser] = useState;
+// Listen user's current status.
+export const useAuth = () => {
+  const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
-    const unsub = onAuthStateChanged((auth, user) => setCurrentUser(user));
+    const unsub = onAuthStateChanged(auth, (user) => setCurrentUser(user));
     return unsub;
   }, []);
 
   return currentUser;
-}
+};
 
 // Sign up!
-export function signUp(email, password) {
+export const signUp = (email, password) => {
   createUserWithEmailAndPassword(auth, email, password);
-}
+};
 
 // Sign in!
-export function signIn(email, password) {
+export const signIn = (email, password) => {
   signInWithEmailAndPassword(auth, email, password);
-}
+};
 
 // Sign out!
-export function signOut() {
+export const logout = () => {
   signOut(auth);
-}
+};

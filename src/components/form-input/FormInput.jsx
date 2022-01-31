@@ -5,11 +5,7 @@ function FormInput({ handleChange, onLoad, label, ...otherProps }) {
   // Form input with animated floating labels
   return (
     <div className="group">
-      <input
-        className="form-input"
-        onChange={handleChange}
-        {...otherProps}
-      />
+      <input className="form-input" onChange={handleChange} {...otherProps} />
       {label ? (
         <label
           className={`${
