@@ -9,5 +9,22 @@
   & form {
     max-width: 500px;
     width: 100%;
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    @media screen and (max-width: 510px) {
+      .buttons {
+        flex-direction: column;
+      }
+
+      .buttons > button {
+        width: 100%;
+        margin-bottom: 7px;
+      }
+    }
   }
 }
