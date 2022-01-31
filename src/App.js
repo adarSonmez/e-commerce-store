@@ -1,6 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Homepage from './pages/homepage/Homepage';
+import ShopPage from './pages/shop/ShopPage';
+import './App.scss';
 
 function App() {
   return (
@@ -8,11 +10,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/hats" element={'Hats'} />
-        <Route path="/jackets" element={'Jackets'} />
-        <Route path="/sneakers" element={'Sneakers'} />
-        <Route path="/womens" element={'Womens'} />
-        <Route path="/mens" element={'Mens'} />
+        <Route path="/shop" element={<ShopPage />} />
       </Routes>
     </div>
   );
