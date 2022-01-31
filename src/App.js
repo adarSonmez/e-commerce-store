@@ -4,6 +4,7 @@ import Homepage from './pages/homepage/Homepage';
 
 function App() {
   return (
+    // Define elements corresponding to each path.
     <div className="App">
       <Routes>
         <Route path="/" element={<Homepage />} />

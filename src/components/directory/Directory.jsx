@@ -29,16 +29,16 @@ class Directory extends Component {
         {
           title: 'womens',
           imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-          size: 'large',
           id: 4,
           linkUrl: 'womens',
+          ImageSize: 'large',
         },
         {
           title: 'mens',
           imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-          size: 'large',
           id: 5,
           linkUrl: 'mens',
+          ImageSize: 'large',
         },
       ],
     };
@@ -46,6 +46,7 @@ class Directory extends Component {
 
   render() {
     return (
+      // Display each menu item (Iterate through sections).
       <div className="directory-menu">
         {this.state.sections.map(({ id, ...otherProps }) => (
           <MenuItem key={id} {...otherProps} />
