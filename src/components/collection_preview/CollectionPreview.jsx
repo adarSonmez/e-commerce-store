@@ -3,6 +3,7 @@ import CollectionItem from '../collection-item/CollectionItem';
 import './CollectionPreview.scss';
 
 function CollectionPreview({ title, items }) {
+  // Display only four collection items for each collection.
   return (
     <div className="collection-preview">
       <h1 className="title">{title.toUpperCase()}</h1>

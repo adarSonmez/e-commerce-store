@@ -11,6 +11,7 @@ class ShopPage extends Component {
     };
   }
 
+  // Map through each collection (hats, sneaker...) and display them.
   render() {
     const { collections } = this.state;
     return (
