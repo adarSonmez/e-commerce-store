@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { logout } from '../../firebase/firebase';
+import { logout } from '../../firebase/auth';
 import './Header.scss';
 
 function Header({ currentUser }) {
@@ -21,7 +21,7 @@ function Header({ currentUser }) {
 
         {/** Toggle between sign in and sign out button based on auth status*/}
         {currentUser ? (
-          <div className="option" onClick={() => logout()}>
+          <div className="option" onClick={() => logout(()=>{})}>
             SIGN OUT
           </div>
         ) : (

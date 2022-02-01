@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FormInput from '../../components/form-input/FormInput';
 import CustomButton from '../../components/custom-button/CustomButton';
 import './SignIn.scss';
-import { signInWithGoogle } from '../../firebase/firebase';
+import { signInWithGoogle } from '../../firebase/auth';
 
 function SignIn() {
   const [email, setEmail] = useState('');
@@ -20,8 +20,8 @@ function SignIn() {
   const handleChange = (event) => {
     const { value, name } = event.target;
 
-    if (name == 'email') setEmail(value);
-    else if (name == 'password') setPassword(value);
+    if (name === 'email') setEmail(value);
+    else if (name === 'password') setPassword(value);
   };
 
   return (
