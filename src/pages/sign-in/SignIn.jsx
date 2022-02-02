@@ -2,15 +2,22 @@ import React, { useState } from 'react';
 import FormInput from '../../components/form-input/FormInput';
 import CustomButton from '../../components/custom-button/CustomButton';
 import './SignIn.scss';
-import { signInWithGoogle } from '../../firebase/auth';
+import { signIn, signInWithGoogle } from '../../firebase/auth';
+import { Link } from 'react-router-dom';
 
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   // Clear fields after submission
-  const handleSubmit = (event) => {
+  const signInWithEmail = async (event) => {
     event.preventDefault();
+
+    try {
+      await signIn(email, password);
+    } catch (err) {
+      console.error(err);
+    }
 
     setEmail('');
     setPassword('');
@@ -26,9 +33,14 @@ function SignIn() {
 
   return (
     <div className="sign-in">
-      <h2>I already have an account</h2>
-      <span>Sign in with your email and password</span>
-      <form onSubmit={handleSubmit}>
+      <h2>Sign in with your email and password</h2>
+      <span>
+        Dont't have an account?{' '}
+        <Link to="/signup" className="orange-link">
+          Sign Up!
+        </Link>
+      </span>
+      <form>
         <FormInput
           name="email"
           type="email"
@@ -46,8 +58,11 @@ function SignIn() {
           required
         />
         <div className="buttons">
-          <CustomButton type="submit"> Sign in </CustomButton>
-          <CustomButton type="submit" onClick={signInWithGoogle} google="true">
+          <CustomButton type="button" onClick={signInWithEmail}>
+            {' '}
+            Sign in{' '}
+          </CustomButton>
+          <CustomButton type="button" onClick={signInWithGoogle} google="true">
             {' '}
             sign In With Google{' '}
           </CustomButton>

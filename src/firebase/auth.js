@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
@@ -17,23 +15,16 @@ export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
-    console.log(user);
+    return user;
   } catch (err) {
     console.error(err);
   }
-};
-
-// Listen user's current status.
-export const currentUser = (currentUser, setCurrentUser) => {
-  onAuthStateChanged(auth, (user) => setCurrentUser(user));
-  return currentUser;
 };
 
 // Sign up!
 export const signUp = async (email, password) => {
   try {
     const user = await createUserWithEmailAndPassword(auth, email, password);
-    console.log(user);
     return user;
   } catch (err) {
     console.error(err);
@@ -44,7 +35,7 @@ export const signUp = async (email, password) => {
 export const signIn = async (email, password) => {
   try {
     const user = await signInWithEmailAndPassword(auth, email, password);
-    console.log(user);
+    return user;
   } catch (err) {
     console.error(err);
   }
@@ -53,7 +44,7 @@ export const signIn = async (email, password) => {
 // Sign out!
 export const logout = async () => {
   try {
-    await signOut(auth);
+    return await signOut(auth);
   } catch (err) {
     console.error(err);
   }

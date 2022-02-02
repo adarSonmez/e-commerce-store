@@ -16,7 +16,7 @@ import {
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore';
-import { useAuth } from './auth';
+import { useState } from 'react/cjs/react.development';
 
 // Get firestore database
 const db = getFirestore();
@@ -90,9 +90,13 @@ export const getDataByColName = (colName, callback) => {
 };
 
 // Get a single document by ID (real time update)
-export const getDocByID = (colName, id, callback) => {
+export const getDocByID = async (colName, id, callback) => {
   const docRef = doc(db, colName, id);
-  onSnapshot(docRef, (doc, id) => callback(doc, id));
+  onSnapshot(docRef, (doc, id) => {
+    let userData = { ...doc.data(), id: doc.id };
+    callback(userData);
+    console.log(userData);
+  });
 };
 
 /* SPECIFIC TO THIS PROJECT */

@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { logout } from '../../firebase/auth';
 import './Header.scss';
 
-function Header({ currentUser }) {
+function Header({ listenUser }) {
   // Create header with navigation links and logo.
   return (
     <div className="header">
@@ -20,8 +20,8 @@ function Header({ currentUser }) {
         </NavLink>
 
         {/** Toggle between sign in and sign out button based on auth status*/}
-        {currentUser ? (
-          <div className="option" onClick={() => logout(()=>{})}>
+        {listenUser ? (
+          <div className="option" onClick={() => logout()}>
             SIGN OUT
           </div>
         ) : (

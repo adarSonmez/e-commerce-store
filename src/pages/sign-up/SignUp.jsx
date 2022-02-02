@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import FormInput from '../../components/form-input/FormInput';
 import CustomButton from '../../components/custom-button/CustomButton';
-import { currentUser, signUp, useAuth } from '../../firebase/auth';
+import { signUp, signInWithGoogle } from '../../firebase/auth';
 import { createUserProfileDocument } from '../../firebase/firestore';
 import './SignUp.scss';
+import { Link } from 'react-router-dom';
 
-function SignUp({ listenUser }) {
+function SignUp() {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -58,8 +59,14 @@ function SignUp({ listenUser }) {
 
   return (
     <div className="sign-up">
-      <h2 className="title">I do not have a account</h2>
-      <span>Sign up with your email and password</span>
+      <h2 className="title">Sign up with your email and password</h2>
+      <span>
+        Already have an account?{' '}
+        <Link to="/signin" className="orange-link">
+          Sign In!
+        </Link>
+      </span>
+
       <form className="sign-up-form" onSubmit={handleSubmit}>
         <FormInput
           type="text"
@@ -93,7 +100,13 @@ function SignUp({ listenUser }) {
           label="Confirm Password"
           required
         />
-        <CustomButton type="submit">SIGN UP</CustomButton>
+        <div className="buttons">
+          <CustomButton type="submit">SIGN UP</CustomButton>
+          <CustomButton type="button" onClick={signInWithGoogle} google="true">
+            {' '}
+            sign In With Google{' '}
+          </CustomButton>
+        </div>
       </form>
     </div>
   );

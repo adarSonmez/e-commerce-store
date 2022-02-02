@@ -6,6 +6,17 @@
   align-items: center;
   justify-content: center;
 
+  span {
+    font-size: 18px;
+    margin-top: 8px;
+
+    .orange-link {
+      color: rgb(255, 115, 0);
+      font-weight: 700;
+      font-size: 17px;
+    }
+  }
+
   & form {
     max-width: 500px;
     width: 100%;
