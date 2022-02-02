@@ -13,47 +13,48 @@ export const auth = getAuth();
 export const provider = new GoogleAuthProvider();
 
 // Sign in with Google Popup
-export const signInWithGoogle = (callback) =>
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      callback();
-    })
-    .catch((error) => GoogleAuthProvider.credentialFromError(error));
+export const signInWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    console.log(user);
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 // Listen user's current status.
-export const useAuth = () => {
-  const [currentUser, setCurrentUser] = useState();
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => setCurrentUser(user));
-    return unsub;
-  }, []);
-
+export const currentUser = (currentUser, setCurrentUser) => {
+  onAuthStateChanged(auth, (user) => setCurrentUser(user));
   return currentUser;
 };
 
 // Sign up!
-export const signUp = (email, password, callback) => {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then(callback())
-    .catch((err) => console.log(err.message));
+export const signUp = async (email, password) => {
+  try {
+    const user = await createUserWithEmailAndPassword(auth, email, password);
+    console.log(user);
+    return user;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 // Sign in!
-export const signIn = (email, password, callback) => {
-  signInWithEmailAndPassword(auth, email, password)
-    .then(callback())
-    .catch((err) => console.log(err.message));
+export const signIn = async (email, password) => {
+  try {
+    const user = await signInWithEmailAndPassword(auth, email, password);
+    console.log(user);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 // Sign out!
-export const logout = (callback) => {
-  signOut(auth)
-    .then(callback())
-    .catch((err) => console.log(err.message));
+export const logout = async () => {
+  try {
+    await signOut(auth);
+  } catch (err) {
+    console.error(err);
+  }
 };

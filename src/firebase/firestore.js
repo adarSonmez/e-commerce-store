@@ -16,6 +16,7 @@ import {
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore';
+import { useAuth } from './auth';
 
 // Get firestore database
 const db = getFirestore();
@@ -98,18 +99,29 @@ export const getDocByID = (colName, id, callback) => {
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
-  const docRef = doc(db, 'users', userAuth.uid);
-  const { displayName, email } = userAuth;
+  const docRef = doc(db, 'users', await userAuth.uid);
+  const { email, displayName } = await userAuth;
 
-  try {
-    await setDoc(docRef, {
-      displayName,
-      email,
-      createdAt: new Date(),
-      ...additionalData,
-    });
-  } catch (error) {
-    console.error(error.message);
+  if (displayName) {
+    try {
+      await setDoc(docRef, {
+        name: displayName,
+        email,
+        createdAt: new Date(),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    try {
+      await setDoc(docRef, {
+        email,
+        createdAt: new Date(),
+        ...additionalData,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   getDocByID('users', userAuth.uid, () => {});
