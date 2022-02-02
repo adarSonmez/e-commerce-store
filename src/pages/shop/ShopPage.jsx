@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import CollectionPreview from '../../components/collection_preview/CollectionPreview';
 import { SHOP_DATA } from './shop.data';
 

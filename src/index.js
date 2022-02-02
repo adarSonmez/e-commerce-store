@@ -4,10 +4,10 @@ import { BrowserRouter } from 'react-router-dom';
 
 // The order of importing firebase modules is important
 import './firebase/config';
-import './firebase/firestore';
-import './firebase/auth';
+import './firebase/controller';
+import './firebase/userAuth';
 
-import './index.css';
+import './index.scss';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';

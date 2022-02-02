@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { signIn, signInWithGoogle } from '../../firebase/userAuth';
 import FormInput from '../../components/form-input/FormInput';
 import CustomButton from '../../components/custom-button/CustomButton';
 import './SignIn.scss';
-import { signIn, signInWithGoogle } from '../../firebase/auth';
-import { Link } from 'react-router-dom';
 
 function SignIn() {
   const [email, setEmail] = useState('');
@@ -23,7 +23,7 @@ function SignIn() {
     setPassword('');
   };
 
-  // Update state at the same time as the user is typing
+  // Update state on typing
   const handleChange = (event) => {
     const { value, name } = event.target;
 

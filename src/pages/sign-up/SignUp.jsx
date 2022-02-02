@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import FormInput from '../../components/form-input/FormInput';
 import CustomButton from '../../components/custom-button/CustomButton';
-import { signUp, signInWithGoogle } from '../../firebase/auth';
-import { createUserProfileDocument } from '../../firebase/firestore';
+import { signUp, signInWithGoogle } from '../../firebase/userAuth';
+import { createUserProfileDocument } from '../../firebase/controller';
 import './SignUp.scss';
 import { Link } from 'react-router-dom';
 
@@ -27,6 +27,7 @@ function SignUp() {
         name: displayName,
       });
 
+      // Clear fields after submission
       setDisplayName('');
       setEmail('');
       setPassword('');
@@ -36,6 +37,7 @@ function SignUp() {
     }
   };
 
+  // Update state on typing
   const handleChange = (event) => {
     const { name, value } = event.target;
 

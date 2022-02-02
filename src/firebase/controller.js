@@ -1,7 +1,3 @@
-/**
- * Firebase V9 CRUD operations
- **/
-
 import {
   getFirestore,
   collection,
@@ -16,65 +12,75 @@ import {
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore';
-import { useState } from 'react/cjs/react.development';
 
 // Get firestore database
 const db = getFirestore();
 
 // Add a document to firestore
-export const addDocument = (colName, docObject, callback) => {
-  const colRef = collection(db, colName);
-
-  addDoc(colRef, {
-    ...docObject,
-    createdAt: serverTimestamp(),
-  })
-    .catch((err) => console.log(err.message))
-    .then(callback());
+export const addDocument = async (colName, docObject, callback) => {
+  try {
+    const colRef = collection(db, colName);
+    await addDoc(colRef, {
+      ...docObject,
+      createdAt: serverTimestamp(),
+    });
+    await callback();
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 // Delete a document from firestore
-export const deleteDocumentByID = (colName, docID, callback) => {
-  const colRef = collection(db, colName);
-  const docRef = doc(db, colRef, docID);
+export const deleteDocumentByID = async (colName, docID, callback) => {
+  try {
+    const docRef = doc(db, colName, docID);
 
-  deleteDoc(docRef)
-    .catch((err) => console.log(err.message))
-    .then(callback());
+    await deleteDoc(docRef);
+    await callback();
+  } catch (err) {
+    console.err(err);
+  }
 };
 
 // Update a document in firestore
-export const UpdateDocumentByID = (colName, docID, newDoc, callback) => {
-  const colRef = collection(db, colName);
-  const docRef = doc(db, colRef, docID);
+export const UpdateDocumentByID = async (colName, docID, newDoc, callback) => {
+  try {
+    const docRef = doc(db, colName, docID);
 
-  updateDoc(docRef, newDoc)
-    .catch((err) => console.log(err.message))
-    .then(callback());
+    await updateDoc(docRef, newDoc);
+    await callback();
+  } catch (err) {
+    console.err(err);
+  }
 };
 
+/***************************** TO DO ***********************************
 // Create a query
-export const myQuery = (colName, filterStr, orderIndex, desc, callback) => {
-  const colRef = collection(db, colName);
-
-  return query(
-    colRef,
-    where(filterStr),
-    orderBy(orderIndex, desc ? 'desc' : 'asc')
-  )
-    .then(callback())
-    .catch((err) => console.log(err.message));
+export const myQuery = async (colName, filterStr, orderIndex, desc) => {
+  try {
+    const colRef = collection(db, colName);
+    return query(
+      colRef,
+      where(filterStr),
+      orderBy(orderIndex, desc ? 'desc' : 'asc')
+    );
+  } catch (err) {
+    console.err(err);
+  }
 };
 
 // Use custom query to get data (real time update)
-export const getDataByQuery = (q, callback) =>
-  onSnapshot(q, (snapshot) => {
-    return snapshot.docs.map((doc) => {
-      return { ...doc.data(), id: doc.id };
+export const getDataByQuery = (q, callback) => {
+  try {
+    return onSnapshot(q, (snapshot) => {
+      return snapshot.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
     });
-  })
-    .then(callback())
-    .catch((err) => console.log(err.message));
+  } catch (err) {
+    console.err(err);
+  }
+};
 
 // Send collection's name and get all documents (real time update)
 export const getDataByColName = (colName, callback) => {
@@ -87,7 +93,7 @@ export const getDataByColName = (colName, callback) => {
   })
     .then(callback())
     .catch((err) => console.log(err.message));
-};
+}; */
 
 // Get a single document by ID (real time update)
 export const getDocByID = async (colName, id, callback) => {
@@ -95,11 +101,10 @@ export const getDocByID = async (colName, id, callback) => {
   onSnapshot(docRef, (doc, id) => {
     let userData = { ...doc.data(), id: doc.id };
     callback(userData);
-    console.log(userData);
   });
 };
 
-/* SPECIFIC TO THIS PROJECT */
+// Create user profile, and save in firestore
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
@@ -127,6 +132,4 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
       console.error(error);
     }
   }
-
-  getDocByID('users', userAuth.uid, () => {});
 };

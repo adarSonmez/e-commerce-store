@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+
 import Homepage from './pages/homepage/Homepage';
 import ShopPage from './pages/shop/ShopPage';
-import './App.scss';
-import Header from './components/header/Header';
 import SignIn from './pages/sign-in/SignIn';
 import SignUp from './pages/sign-up/SignUp';
+import Header from './components/header/Header';
+
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase/auth';
-import { getDocByID } from './firebase/firestore';
+import { auth } from './firebase/userAuth';
+import { getDocByID } from './firebase/controller';
+import './App.scss';
 
 function App() {
   const [currentUser, setCurrentUser] = useState();
@@ -19,7 +21,7 @@ function App() {
     const unsub = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
 
-      if (user !== null && user.uid !== null) {
+      if (user !== null) {
         getDocByID('users', user?.uid, setUserInfo);
       } else {
         setUserInfo(null);
@@ -29,14 +31,13 @@ function App() {
   }, [auth]);
 
   return (
-    // Define elements corresponding to each path.
     <div className="App">
       <Header listenUser={currentUser} />
       <div>{userInfo?.name}</div>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/shop" element={<ShopPage />} />
-        <Route path="/signin" element={<SignIn userInfo={userInfo} />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </div>
