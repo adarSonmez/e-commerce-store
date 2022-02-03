@@ -96,11 +96,14 @@ export const getDataByColName = (colName, callback) => {
 }; */
 
 // Get a single document by ID (real time update)
-export const getDocByID = async (colName, id, callback) => {
-  const docRef = doc(db, colName, id);
+export const getDocByID = async (colName, userAuth, callback) => {
+  const docRef = doc(db, colName, userAuth.uid);
   onSnapshot(docRef, (doc, id) => {
     let userData = { ...doc.data(), id: doc.id };
-    callback(userData);
+    callback({
+      userAuth: userAuth,
+      userInfo: userData,
+    });
   });
 };
 
@@ -116,7 +119,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
       await setDoc(docRef, {
         name: displayName,
         email,
-        createdAt: new Date(),
+        createdAt: new Date().toUTCString(),
       });
     } catch (error) {
       console.error(error);
@@ -125,7 +128,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     try {
       await setDoc(docRef, {
         email,
-        createdAt: new Date(),
+        createdAt: new Date().toUTCString(),
         ...additionalData,
       });
     } catch (error) {
