@@ -14,6 +14,8 @@
   cursor: pointer;
   width: 49%;
   transition: all 0.4s;
+  display: flex;
+  justify-content: center;
 
   &.google-btn {
     background-color: rgb(196, 0, 0);
@@ -23,5 +25,17 @@
     background-color: white;
     color: black;
     border: 1px solid black;
+  }
+
+  &.inverted {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+
+    &:hover {
+      background-color: black;
+      color: white;
+      border: none;
+    }
   }
 }
