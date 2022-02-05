@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { logout } from '../../firebase/userAuth';
 import './Header.scss';
 
@@ -13,7 +12,7 @@ function Header({ userAuth }) {
   return (
     <div className="header">
       <NavLink className="logo-container" to="/">
-        <Logo className="logo" />
+        Lebas<span>{" "}Boutique</span>
       </NavLink>
       <div className="options">
         <NavLink className="option" to="/shop">
