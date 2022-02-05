@@ -2,9 +2,12 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../firebase/userAuth';
+
+import CartDropdown from '../cart-dropdown/CartDropdown';
+import CartIcon from '../cart-icon/CartIcon';
 import './Header.scss';
 
-function Header({ userAuth }) {
+function Header({ userAuth, hidden }) {
   console.log(userAuth);
   const path = useLocation().pathname;
 
@@ -12,7 +15,7 @@ function Header({ userAuth }) {
   return (
     <div className="header">
       <NavLink className="logo-container" to="/">
-        Lebas<span>{" "}Boutique</span>
+        Lebas<span> Boutique</span>
       </NavLink>
       <div className="options">
         <NavLink className="option" to="/shop">
@@ -22,7 +25,7 @@ function Header({ userAuth }) {
           CONTACT
         </NavLink>
 
-        {/** The art of toggling buttons */}
+        {/** Toggling sign in and sign up buttons */}
         {(() => {
           if (userAuth) {
             return (
@@ -45,13 +48,16 @@ function Header({ userAuth }) {
               );
           }
         })()}
+        <CartIcon />
       </div>
+      {hidden ? null : <CartDropdown />}
     </div>
   );
 }
 
-const mapStateToProps = (state) => ({
-  userAuth: state.user.userAuth,
+const mapStateToProps = ({ user: { userAuth }, cart: { hidden } }) => ({
+  userAuth,
+  hidden,
 });
 
 export default connect(mapStateToProps)(Header);
