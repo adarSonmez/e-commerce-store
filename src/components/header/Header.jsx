@@ -2,10 +2,13 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../firebase/userAuth';
+import { createStructuredSelector } from 'reselect';
 
 import CartDropdown from '../cart-dropdown/CartDropdown';
 import CartIcon from '../cart-icon/CartIcon';
 import './Header.scss';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import { selectUserAuth } from '../../redux/user/user.selectors';
 
 function Header({ userAuth, hidden }) {
   console.log(userAuth);
@@ -55,9 +58,9 @@ function Header({ userAuth, hidden }) {
   );
 }
 
-const mapStateToProps = ({ user: { userAuth }, cart: { hidden } }) => ({
-  userAuth,
-  hidden,
+const mapStateToProps = createStructuredSelector({
+  userAuth: selectUserAuth,
+  hidden: selectCartHidden,
 });
 
 export default connect(mapStateToProps)(Header);

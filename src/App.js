@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
+import { createStructuredSelector } from 'reselect';
 
 import Homepage from './pages/homepage/Homepage';
 import ShopPage from './pages/shop/ShopPage';
@@ -13,10 +14,9 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/userAuth';
 import { getDocByID } from './firebase/controller';
 import './App.scss';
+import { selectUserAuth, selectUserInfo } from './redux/user/user.selectors';
 
 function App({ setCurrentUser, userInfo, userAuth }) {
-  const navigate = useNavigate();
-
   useEffect(() => {
     // Listen user's current status.
     const unsub = onAuthStateChanged(auth, (userAuth) => {
@@ -34,7 +34,7 @@ function App({ setCurrentUser, userInfo, userAuth }) {
       }
     });
     return unsub;
-  }, [auth]);
+  }, [userAuth]);
 
   return (
     <div className="App">
@@ -58,9 +58,15 @@ function App({ setCurrentUser, userInfo, userAuth }) {
   );
 }
 
-const mapStateToProps = ({ user }) => ({
-  userInfo: user.userInfo,
-  userAuth: user.userAuth,
+/**
+ * With createStructuredSelector you don't need to send state as a argument
+ * like shown below:
+ * const mapStateToProps = state => ({userAuth: selectUserAuth(state)})
+ */
+const mapStateToProps = createStructuredSelector({
+  // Memoized selectors
+  userInfo: selectUserInfo,
+  userAuth: selectUserAuth,
 });
 
 const mapDispatchToProps = (dispatch) => ({
