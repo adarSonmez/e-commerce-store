@@ -15,10 +15,12 @@
     height: 240px;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   button {
     margin-top: auto;
+    width: 100%;
   }
 }
