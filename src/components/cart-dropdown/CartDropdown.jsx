@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CustomButton from '../custom-button/CustomButton';
 import { createStructuredSelector } from 'reselect';
-import CartItem from '../cart-item/CartItem';
-import './CartDropdown.scss';
-import { selectCartItems } from '../../redux/cart/cart.selectors';
 
+import CustomButton from '../custom-button/CustomButton';
+import CartItem from '../cart-item/CartItem';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
+import './CartDropdown.scss';
+
+/** Shows the items added to the cart */
 function CartDropdown({ cartItems }) {
   return (
     <div className="cart-dropdown">

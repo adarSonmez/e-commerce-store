@@ -1,3 +1,10 @@
+:root {
+  --base-duration: 800ms;
+  --base-ease: cubic-bezier(0.25, 0.46, 0.45, 0.84);
+  --slide-size: 350px;
+  --slide-margin: 15px;
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CollectionPreview from '../../components/collection_preview/CollectionPreview';
+import CollectionSlider from '../../components/collection_slider/CollectionSlider';
 import { SHOP_DATA } from './shop.data';
 
 function ShopPage() {
@@ -9,7 +9,7 @@ function ShopPage() {
   return (
     <div className="shop-page">
       {collections.map(({ id, ...otherProps }) => (
-        <CollectionPreview key={id} {...otherProps} />
+        <CollectionSlider key={id} {...otherProps}/>
       ))}
     </div>
   );
