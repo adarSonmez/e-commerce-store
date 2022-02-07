@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CollectionItem from '../collection-item/CollectionItem';
+import SliderItem from '../slider-item/SliderItem';
 import './CollectionSlider.scss';
 
 function CollectionSlider({ title, items, routeName }) {
@@ -28,7 +28,7 @@ function CollectionSlider({ title, items, routeName }) {
       <div className="slider">
         <ul className="slider-wrapper" style={moveSlideFocus()}>
           {items.map((slide) => (
-            <CollectionItem
+            <SliderItem
               key={slide.id}
               slide={slide}
               currentID={current + items[0].id - 1}

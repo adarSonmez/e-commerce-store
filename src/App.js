@@ -16,6 +16,8 @@ import { auth } from './firebase/userAuth';
 import { getDocByID } from './firebase/controller';
 import './App.scss';
 import { selectUserAuth, selectUserInfo } from './redux/user/user.selectors';
+import CollectionPage from './pages/collection/CollectionPage';
+import CollectionOverview from './components/collection-overview/CollectionOverview';
 
 function App({ setCurrentUser, userInfo, userAuth }) {
   useEffect(() => {
@@ -35,7 +37,7 @@ function App({ setCurrentUser, userInfo, userAuth }) {
       }
     });
     return unsub;
-  }, [userAuth]);
+  }, [setCurrentUser]);
 
   return (
     <div className="App">
@@ -43,7 +45,10 @@ function App({ setCurrentUser, userInfo, userAuth }) {
       <div>{userInfo?.name}</div>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/shop" element={<ShopPage />}>
+          <Route path="" element={<CollectionOverview />} />
+          <Route path=":collectionId" element={<CollectionPage />} />
+        </Route>
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route
           path="/signin"
