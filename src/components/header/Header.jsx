@@ -11,7 +11,6 @@ import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectUserAuth } from '../../redux/user/user.selectors';
 
 function Header({ userAuth, hidden }) {
-  console.log(userAuth);
   const path = useLocation().pathname;
 
   // Create header with navigation links and logo.
