@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 
 import Homepage from './pages/homepage/Homepage';
 import ShopPage from './pages/shop/ShopPage';
+import CheckoutPage from './pages/checkout/CheckoutPage';
 import SignIn from './pages/sign-in/SignIn';
 import SignUp from './pages/sign-up/SignUp';
 import Header from './components/header/Header';
@@ -43,6 +44,7 @@ function App({ setCurrentUser, userInfo, userAuth }) {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route
           path="/signin"
           element={userAuth ? <Navigate replace to="/" /> : <SignIn />}

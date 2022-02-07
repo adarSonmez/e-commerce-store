@@ -29,7 +29,7 @@ function CollectionSlider({ title, items, routeName }) {
         <ul className="slider-wrapper" style={moveSlideFocus()}>
           {items.map((slide) => (
             <CollectionItem
-              key={slide.index}
+              key={slide.id}
               slide={slide}
               currentID={current + items[0].id - 1}
               handleSlideClick={handleSlideClick}
