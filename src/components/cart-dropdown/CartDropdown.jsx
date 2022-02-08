@@ -5,16 +5,19 @@ import { useNavigate } from 'react-router-dom';
 
 import CustomButton from '../custom-button/CustomButton';
 import CartItem from '../cart-item/CartItem';
-import { selectCartItems } from '../../redux/cart/cart.selectors';
+import {
+  selectCartHidden,
+  selectCartItems,
+} from '../../redux/cart/cart.selectors';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import './CartDropdown.scss';
 
 /** Shows the items added to the cart */
-function CartDropdown({ cartItems, dispatch }) {
+function CartDropdown({ cartItems, dispatch, hidden }) {
   const navigate = useNavigate();
 
   return (
-    <div className="cart-dropdown">
+    <div className={`cart-dropdown ${hidden ? 'hidden-cart' : ''}`}>
       <div className="cart-items">
         {cartItems.length ? (
           cartItems.map((cartItem) => (
@@ -40,6 +43,7 @@ function CartDropdown({ cartItems, dispatch }) {
 
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
+  hidden: selectCartHidden,
 });
 
 /* Another way to access dispatch

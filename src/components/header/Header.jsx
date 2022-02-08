@@ -7,17 +7,18 @@ import { createStructuredSelector } from 'reselect';
 import CartDropdown from '../cart-dropdown/CartDropdown';
 import CartIcon from '../cart-icon/CartIcon';
 import './Header.scss';
-import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectUserAuth } from '../../redux/user/user.selectors';
+import LOGO_URL from '../../assets/logo2.png';
 
-function Header({ userAuth, hidden }) {
+function Header({ userAuth }) {
   const path = useLocation().pathname;
 
   // Create header with navigation links and logo.
   return (
     <div className="header">
       <NavLink className="logo-container" to="/">
-        Lebas<span> Boutique</span>
+        <img src={LOGO_URL} alt="My Boutique Logo" />
+        <span>My Boutique</span>
       </NavLink>
       <div className="options">
         <NavLink className="option" to="/shop">
@@ -52,14 +53,13 @@ function Header({ userAuth, hidden }) {
         })()}
         <CartIcon />
       </div>
-      {hidden ? null : <CartDropdown />}
+      <CartDropdown />
     </div>
   );
 }
 
 const mapStateToProps = createStructuredSelector({
   userAuth: selectUserAuth,
-  hidden: selectCartHidden,
 });
 
 export default connect(mapStateToProps)(Header);

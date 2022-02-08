@@ -28,4 +28,17 @@
     margin-left: auto;
     font-size: 36px;
   }
+
+  .test-warning {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 10px 0;
+
+    .test-cart-info {
+      margin: 5px 0;
+      color: #555;
+    }
+  }
 }
