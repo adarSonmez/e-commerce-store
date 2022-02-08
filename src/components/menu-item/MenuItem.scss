@@ -6,6 +6,7 @@
   margin: 0 7.5px 15px;
   overflow: hidden;
   border-radius: 10px;
+  box-shadow: 3px 3px 5px rgb(58, 58, 58);
 
   &:hover {
     cursor: pointer;
@@ -47,7 +48,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(195, 0, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.4);
     position: absolute;
     bottom: 0;
     
