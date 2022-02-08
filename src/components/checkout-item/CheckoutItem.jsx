@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import {
   clearItemFromCart,
   addItem,
@@ -19,6 +20,7 @@ function CheckoutItem({ cartItem, clearItem, addItem, removeItem }) {
       <span className="quantity">
         {' '}
         <div className="arrow" onClick={() => removeItem(cartItem)}>
+          {/* Remove icon is from UTF-8 Dingbats */}
           &#10094;
         </div>
         <span className="value">{quantity}</span>
@@ -27,7 +29,6 @@ function CheckoutItem({ cartItem, clearItem, addItem, removeItem }) {
         </div>
       </span>
       <span className="price">{price}</span>
-      {/* Remove icon is from UTF-8 Dingbats */}
       <div className="remove-button" onClick={() => clearItem(cartItem)}>
         &#10005;
       </div>

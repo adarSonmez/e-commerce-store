@@ -8,12 +8,13 @@ import {
 } from '../../redux/cart/cart.selectors';
 import CheckoutItem from '../../components/checkout-item/CheckoutItem';
 import StripeCheckoutButton from '../../components/stripe-button/StripeButton';
-
 import './CheckoutPage.scss';
 
 function CheckoutPage({ cartItems, total }) {
+  /* Since this is a portfolio project, payment cannot be made, 
+  but test payment can be made with the card number given by stripe. */
   return (
-    <div className="checkout-page">
+    <div className="checkout-page page">
       <div className="checkout-header">
         <div className="header-block">
           <span>Product</span>

@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 function ShopPage() {
   // Map through each collection (hats, sneaker...) and display them.
   return (
-    <div className="shop-page">
+    <div className="shop-page page">
       <Outlet />
     </div>
   );

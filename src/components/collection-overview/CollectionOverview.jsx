@@ -6,6 +6,7 @@ import CollectionSlider from '../collection_slider/CollectionSlider';
 import { selectCollectionsAsArray } from '../../redux/shop/shop.selectors.js';
 
 function CollectionOverview({ collections }) {
+  // A container for of slider components
   return (
     <div className="collection-overview">
       {collections.map(({ id, ...otherProps }) => (

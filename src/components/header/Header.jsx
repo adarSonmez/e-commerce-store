@@ -1,21 +1,23 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../../firebase/userAuth';
 import { createStructuredSelector } from 'reselect';
 
+import { selectUserAuth } from '../../redux/user/user.selectors';
+import { logout } from '../../firebase/userAuth';
 import CartDropdown from '../cart-dropdown/CartDropdown';
 import CartIcon from '../cart-icon/CartIcon';
-import './Header.scss';
-import { selectUserAuth } from '../../redux/user/user.selectors';
-import LOGO_URL from '../../assets/logo2.png';
 
-function Header({ userAuth }) {
+import LOGO_URL from '../../assets/logo2.png';
+import './Header.scss';
+
+function Header({ userAuth, userName }) {
   const path = useLocation().pathname;
 
   // Create header with navigation links and logo.
   return (
     <div className="header">
+      <div className="user-name">{userName}</div>
       <NavLink className="logo-container" to="/">
         <img src={LOGO_URL} alt="My Boutique Logo" />
         <span>My Boutique</span>
@@ -24,9 +26,14 @@ function Header({ userAuth }) {
         <NavLink className="option" to="/shop">
           SHOP
         </NavLink>
-        <NavLink className="option" to="/contact">
+        <a
+          className="option"
+          href="http://www.adarsonmez.software/"
+          target="_blank"
+          rel="noreferrer"
+        >
           CONTACT
-        </NavLink>
+        </a>
 
         {/** Toggling sign in and sign up buttons */}
         {(() => {

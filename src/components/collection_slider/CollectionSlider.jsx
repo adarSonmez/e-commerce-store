@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SliderItem from '../slider-item/SliderItem';
 import './CollectionSlider.scss';
 
 function CollectionSlider({ title, items, routeName }) {
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate();
 
   // Change current slide when user clicks right or left of the slider
   const handleSlideClick = (index) => {
@@ -24,7 +26,9 @@ function CollectionSlider({ title, items, routeName }) {
 
   return (
     <div className="slider-container">
-      <h1 className="title">{title.toUpperCase()}</h1>
+      <h1 className="title" onClick={() => navigate(routeName)}>
+        {title.toUpperCase()}
+      </h1>
       <div className="slider">
         <ul className="slider-wrapper" style={moveSlideFocus()}>
           {items.map((slide) => (

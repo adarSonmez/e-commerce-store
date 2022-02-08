@@ -4,7 +4,7 @@ import './Homepage.scss';
 
 function Homepage() {
   return (
-    <div className="homepage">
+    <div className="homepage page">
       <Directory />
     </div>
   );

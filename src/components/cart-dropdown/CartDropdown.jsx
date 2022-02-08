@@ -12,7 +12,7 @@ import {
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import './CartDropdown.scss';
 
-/** Shows the items added to the cart */
+/* Shows the items added to the cart */
 function CartDropdown({ cartItems, dispatch, hidden }) {
   const navigate = useNavigate();
 

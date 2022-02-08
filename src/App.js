@@ -41,15 +41,19 @@ function App({ setCurrentUser, userInfo, userAuth }) {
 
   return (
     <div className="App">
-      <Header />
-      <div>{userInfo?.name}</div>
+      <Header userName={userInfo?.name} />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/shop" element={<ShopPage />}>
           <Route path="" element={<CollectionOverview />} />
           <Route path=":collectionId" element={<CollectionPage />} />
         </Route>
-        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route
+          path="/checkout"
+          element={
+            userAuth ? <CheckoutPage /> : <Navigate replace to="/signup" />
+          }
+        />
         <Route
           path="/signin"
           element={userAuth ? <Navigate replace to="/" /> : <SignIn />}

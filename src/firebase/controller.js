@@ -6,9 +6,6 @@ import {
   addDoc,
   deleteDoc,
   updateDoc,
-  query,
-  where,
-  orderBy,
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore';
@@ -53,47 +50,6 @@ export const UpdateDocumentByID = async (colName, docID, newDoc, callback) => {
     console.err(err);
   }
 };
-
-/***************************** TO DO ***********************************
-// Create a query
-export const myQuery = async (colName, filterStr, orderIndex, desc) => {
-  try {
-    const colRef = collection(db, colName);
-    return query(
-      colRef,
-      where(filterStr),
-      orderBy(orderIndex, desc ? 'desc' : 'asc')
-    );
-  } catch (err) {
-    console.err(err);
-  }
-};
-
-// Use custom query to get data (real time update)
-export const getDataByQuery = (q, callback) => {
-  try {
-    return onSnapshot(q, (snapshot) => {
-      return snapshot.docs.map((doc) => {
-        return { ...doc.data(), id: doc.id };
-      });
-    });
-  } catch (err) {
-    console.err(err);
-  }
-};
-
-// Send collection's name and get all documents (real time update)
-export const getDataByColName = (colName, callback) => {
-  const colRef = collection(db, colName);
-
-  return onSnapshot(colRef, (snapshot) => {
-    return snapshot.docs.map((doc) => {
-      return { ...doc.data(), id: doc.id };
-    });
-  })
-    .then(callback())
-    .catch((err) => console.log(err.message));
-}; */
 
 // Get a single document by ID (real time update)
 export const getDocByID = async (colName, userAuth, callback) => {

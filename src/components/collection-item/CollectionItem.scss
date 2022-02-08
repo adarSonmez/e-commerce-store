@@ -5,30 +5,38 @@
   align-items: center;
   position: relative;
 
-  .image {
+  .image-wrapper {
     width: 100%;
     height: 95%;
     background-size: cover;
     background-position: center;
     margin-bottom: 5px;
+    border-radius: 20px;
+    transition: 0.3s all;
+    position: absolute;
   }
 
   .custom-button {
-    width: 80%;
-    opacity: 0.7;
+    bottom: 0;
+    color: white;
+    border: none;
+    width: 100%;
+    max-width: 100%;
+    background-color: rgba(0, 0, 0, 0.493);
+    border-radius: 0 0 20px 20px;
+    padding: 0;
     position: absolute;
-    top: 255px;
-    display: none;
+    font-size: 18px;
+
+    &:hover {
+      color: rgb(255, 255, 255);
+      background-color: rgba(0, 0, 0, 1);
+    }
   }
 
   &:hover {
     .image {
-      opacity: 0.8;
-    }
-
-    .custom-button {
-      opacity: 0.85;
-      display: flex;
+      opacity: 1;
     }
   }
 
@@ -36,16 +44,31 @@
     width: 100%;
     height: 5%;
     display: flex;
+    flex-direction: column;
+    position: relative;
     justify-content: space-between;
-    font-size: 18px;
+    color: white;
+    text-align: center;
 
     .name {
-      width: 90%;
-      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: -15px;
+      background-color: rgba(195, 0, 255, 0.3);
+      text-shadow: 0 0 5px black;
+      border-radius: 20px 20px 0 0;
     }
 
     .price {
-      width: 10%;
+      font-size: 6vmin;
+      font-weight: 600;
+      position: absolute;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      top: 132px;
     }
   }
 }

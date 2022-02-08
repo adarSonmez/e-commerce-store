@@ -1,13 +1,15 @@
 .slider-container {
   align-items: center;
-  height: 480px;
+  height: 450px;
   justify-content: center;
   overflow-x: hidden;
   width: 100%;
 
   .title {
+    font-size: 25px;
     text-align: center;
     margin-bottom: 20px;
+    cursor: pointer;
   }
 
   .slider {

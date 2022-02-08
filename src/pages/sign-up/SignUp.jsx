@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import FormInput from '../../components/form-input/FormInput';
-import CustomButton from '../../components/custom-button/CustomButton';
+import { Link } from 'react-router-dom';
+
 import { signUp, signInWithGoogle } from '../../firebase/userAuth';
 import { createUserProfileDocument } from '../../firebase/controller';
+import FormInput from '../../components/form-input/FormInput';
+import CustomButton from '../../components/custom-button/CustomButton';
 import './SignUp.scss';
-import { Link } from 'react-router-dom';
 
 function SignUp() {
   const [displayName, setDisplayName] = useState('');
@@ -60,7 +61,7 @@ function SignUp() {
   };
 
   return (
-    <div className="sign-up">
+    <div className="sign-up page">
       <h2 className="title">Sign up with your email and password</h2>
       <span>
         Already have an account?{' '}
@@ -69,7 +70,7 @@ function SignUp() {
         </Link>
       </span>
 
-      <form className="sign-up-form" onSubmit={handleSubmit}>
+      <form className="sign-up-form" onSubmit={handleSubmit} method="POST">
         <FormInput
           type="text"
           name="display-name"

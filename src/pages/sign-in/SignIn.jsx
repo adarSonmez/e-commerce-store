@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import { signIn, signInWithGoogle } from '../../firebase/userAuth';
 import FormInput from '../../components/form-input/FormInput';
 import CustomButton from '../../components/custom-button/CustomButton';
@@ -32,7 +33,7 @@ function SignIn() {
   };
 
   return (
-    <div className="sign-in">
+    <div className="sign-in page">
       <h2>Sign in with your email and password</h2>
       <span>
         Dont't have an account?{' '}
@@ -40,7 +41,7 @@ function SignIn() {
           Sign Up!
         </Link>
       </span>
-      <form>
+      <form method="POST">
         <FormInput
           name="email"
           type="email"
