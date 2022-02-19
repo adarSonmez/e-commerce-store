@@ -9,10 +9,15 @@ export const selectCollections = createSelector(
 
 export const selectCollectionsAsArray = createSelector(
   [selectCollections],
-  (collections) => Object.keys(collections).map((key) => collections[key])
+  (collections) =>
+    collections
+      ? Object.keys(collections).map((title) => collections[title])
+      : []
 );
 
 export const selectCollection = (collectionUrlParam) =>
   createSelector([selectCollectionsAsArray], (collections) =>
-    collections.filter((c) => c.routeName === collectionUrlParam)
+    collections
+      ? collections.filter((c) => c.routeName === collectionUrlParam)
+      : null
   );

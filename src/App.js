@@ -69,11 +69,11 @@ function App({ setCurrentUser, userInfo, userAuth }) {
   );
 }
 
-/**
- * With createStructuredSelector you don't need to send state as a argument
- * like shown below:
- * const mapStateToProps = state => ({userAuth: selectUserAuth(state)})
- */
+/*
+With createStructuredSelector you don't need to send state as a argument
+like shown below:
+const mapStateToProps = state => ({userAuth: selectUserAuth(state)})
+*/
 const mapStateToProps = createStructuredSelector({
   // Memoized selectors
   userInfo: selectUserInfo,

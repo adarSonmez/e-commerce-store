@@ -1,17 +1,17 @@
 import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
 
 // This is actual local storage object on window browser
 import storage from 'redux-persist/lib/storage';
 
-import cartReducer from './cart/cart.reducer';
-import userReducer from './user/user.reducer';
-import directoryReducer from './directory/directory.reducer';
-import { persistReducer } from 'redux-persist';
-import shopReducer from './shop/shop.reducer';
-
 /* You can have access to session storage object as shown below
 import sessionStorage from "redux-persist/es/storage/session"; 
 */
+
+import cartReducer from './cart/cart.reducer';
+import userReducer from './user/user.reducer';
+import shopReducer from './shop/shop.reducer';
+import directoryReducer from './directory/directory.reducer';
 
 const persistConfig = {
   key: 'root', // Location at reducer object we want to start storing everything.
