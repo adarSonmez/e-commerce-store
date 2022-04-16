@@ -1,8 +1,8 @@
 import React from 'react';
 import './CartItem.scss';
 
+// Displays the quantity and price of the products added to the cart.
 function CartItem({ item: { imageUrl, price, name, quantity } }) {
-  // Displays the quantity and price of the products added to the cart.
   return (
     <div className="cart-item">
       <img src={imageUrl} alt="item" />

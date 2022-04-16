@@ -12,7 +12,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
-
   }
 
   @media only screen and (max-width: 1000px) {
@@ -38,4 +37,17 @@
       grid-gap: 10px;
     }
   }
+}
+
+.loading {
+  text-align: center;
+  width: 100%;
+  color: rgb(94, 0, 94);
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  user-select: none;
 }

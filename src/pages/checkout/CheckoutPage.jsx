@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { useSelector } from 'react-redux';
 
 import {
   selectCartItems,
@@ -10,9 +9,12 @@ import CheckoutItem from '../../components/checkout-item/CheckoutItem';
 import StripeCheckoutButton from '../../components/stripe-button/StripeButton';
 import './CheckoutPage.scss';
 
-function CheckoutPage({ cartItems, total }) {
-  /* Since this is a portfolio project, payment cannot be made, 
+/* Since this is a portfolio project, payment cannot be made, 
   but test payment can be made with the card number given by stripe. */
+function CheckoutPage() {
+  const cartItems = useSelector(selectCartItems);
+  const total = useSelector(selectCartTotal);
+
   return (
     <div className="checkout-page page">
       <div className="checkout-header">
@@ -47,9 +49,4 @@ function CheckoutPage({ cartItems, total }) {
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  cartItems: selectCartItems,
-  total: selectCartTotal,
-});
-
-export default connect(mapStateToProps)(CheckoutPage);
+export default CheckoutPage;

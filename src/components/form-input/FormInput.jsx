@@ -1,8 +1,8 @@
 import React from 'react';
 import './FormInput.scss';
 
-function FormInput({ handleChange, onLoad, label, ...otherProps }) {
-  // Form input with animated floating labels
+// Form input with animated floating labels
+function FormInput({ handleChange, label, ...otherProps }) {
   return (
     <div className="group">
       <input className="form-input" onChange={handleChange} {...otherProps} />

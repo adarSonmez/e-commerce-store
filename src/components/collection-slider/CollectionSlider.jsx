@@ -7,8 +7,10 @@ function CollectionSlider({ title, items, routeName }) {
   const [current, setCurrent] = useState(0);
   const navigate = useNavigate();
 
+  const onNavigateHandler = () => navigate(routeName);
+
   // Change current slide when user clicks right or left of the slider
-  const handleSlideClick = (index) => {
+  const setCurrentOnClick = (index) => {
     let turn = index - items[0].id;
 
     if (current !== turn) {
@@ -17,7 +19,7 @@ function CollectionSlider({ title, items, routeName }) {
   };
 
   // Move slides based on (rerendered) current slide
-  const moveSlideFocus = () => {
+  const moveSlide = () => {
     const wrapperTransform = {
       transform: `translateX(-${current * (100 / items.length)}%)`,
     };
@@ -26,17 +28,17 @@ function CollectionSlider({ title, items, routeName }) {
 
   return (
     <div className="slider-container">
-      <h1 className="title" onClick={() => navigate(routeName)}>
+      <h1 className="title" onClick={onNavigateHandler}>
         {title.toUpperCase()}
       </h1>
       <div className="slider">
-        <ul className="slider-wrapper" style={moveSlideFocus()}>
+        <ul className="slider-wrapper" style={moveSlide()}>
           {items.map((slide) => (
             <SliderItem
               key={slide.id}
               slide={slide}
               currentID={current + items[0].id - 1}
-              handleSlideClick={handleSlideClick}
+              setCurrentOnClick={setCurrentOnClick}
               item={slide}
             />
           ))}

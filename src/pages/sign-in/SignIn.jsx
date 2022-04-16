@@ -13,12 +13,7 @@ function SignIn() {
   // Clear fields after submission
   const signInWithEmail = async (event) => {
     event.preventDefault();
-
-    try {
-      await signIn(email, password);
-    } catch (err) {
-      console.error(err);
-    }
+    await signIn(email, password);
 
     setEmail('');
     setPassword('');

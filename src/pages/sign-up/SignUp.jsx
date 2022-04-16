@@ -24,7 +24,7 @@ function SignUp() {
     try {
       const { user } = await signUp(email, password);
 
-      await createUserProfileDocument(user, {
+      createUserProfileDocument(user, {
         name: displayName,
       });
 

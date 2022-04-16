@@ -1,12 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { useSelector } from 'react-redux';
 
-import CollectionSlider from '../collection_slider/CollectionSlider';
+import CollectionSlider from '../collection-slider/CollectionSlider';
 import { selectCollectionsAsArray } from '../../redux/shop/shop.selectors.js';
 
-function CollectionOverview({ collections }) {
-  // A container for of slider components
+// Container of slider components
+function CollectionOverview() {
+  const collections = useSelector(selectCollectionsAsArray);
+
   return (
     <div className="collection-overview">
       {collections.map(({ id, ...otherProps }) => (
@@ -16,8 +17,4 @@ function CollectionOverview({ collections }) {
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  collections: selectCollectionsAsArray,
-});
-
-export default connect(mapStateToProps)(CollectionOverview);
+export default CollectionOverview;

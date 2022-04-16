@@ -1,13 +1,16 @@
 import React, { useRef } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { addItem } from '../../redux/cart/cart.actions';
 import CustomButton from '../custom-button/CustomButton';
 import './SliderItem.scss';
 
-function SliderItem({ item, addItem, slide, currentID, handleSlideClick }) {
+function SliderItem({ item, currentID, setCurrentOnClick }) {
   const slideRef = useRef();
-  const { id, name, imageUrl, price } = slide;
+  const dispatch = useDispatch();
+  const { id, name, imageUrl, price } = item;
+
+  const addItemToTheCart = () => dispatch(addItem(item));
 
   // Cool effect on mouse move
   const handleMouseMove = (event) => {
@@ -30,8 +33,8 @@ function SliderItem({ item, addItem, slide, currentID, handleSlideClick }) {
   };
 
   // Get clicked slide
-  const handleSideClick = () => {
-    handleSlideClick(id);
+  const handleSlideItemClick = () => {
+    setCurrentOnClick(id);
   };
 
   const imageLoaded = (event) => {
@@ -53,7 +56,7 @@ function SliderItem({ item, addItem, slide, currentID, handleSlideClick }) {
     <li
       ref={slideRef}
       className={setClassNames()}
-      onClick={handleSideClick}
+      onClick={handleSlideItemClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -69,7 +72,7 @@ function SliderItem({ item, addItem, slide, currentID, handleSlideClick }) {
       <article className="slide-content">
         <h2 className="slide-headline">{name}</h2>
         <h2 className="price">{'$' + price}</h2>
-        <CustomButton inverted="true" onClick={() => addItem(item)}>
+        <CustomButton inverted="true" onClick={addItemToTheCart}>
           ADD TO CART
         </CustomButton>
       </article>
@@ -77,8 +80,4 @@ function SliderItem({ item, addItem, slide, currentID, handleSlideClick }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  addItem: (item) => dispatch(addItem(item)),
-});
-
-export default connect(null, mapDispatchToProps)(SliderItem);
+export default SliderItem;

@@ -1,13 +1,14 @@
 import React from 'react';
 import './CustomButton.scss';
 
+// Modifies buttons based on class names
 function CustomButton({ children, ...otherProps }) {
   return (
-    // Modify buttons based on class names
     <button
-      className={`${otherProps.google ? 'google-btn' : ''} ${
-        otherProps.inverted ? 'inverted' : ''
-      } custom-button`}
+      className={`
+        ${otherProps.google ? 'google-btn' : ''} 
+        ${otherProps.inverted ? 'inverted' : ''}
+        custom-button`}
       {...otherProps}
     >
       {children}

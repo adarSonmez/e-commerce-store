@@ -1,19 +1,19 @@
 /* If the product to be added is already in the cart,
 increase the quantity (if not exist, create) of that product. */
-export const addItemToCart = (cartItems, cartItemToAdd) => {
+export const addItemToCart = (cartItems, newItem) => {
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === cartItemToAdd.id
+    (cartItem) => cartItem.id === newItem.id
   );
 
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
-      cartItem.id === cartItemToAdd.id
+      cartItem.id === newItem.id
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
         : cartItem
     );
   }
 
-  return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
+  return [...cartItems, { ...newItem, quantity: 1 }];
 };
 
 /* Delete the product when there is only 1 of the product to be reduced, 

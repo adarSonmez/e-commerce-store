@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
 // The order of importing firebase modules is important
 import './firebase/config';
@@ -9,7 +9,6 @@ import './firebase/userAuth';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-
 import { store, persistor } from './redux/store';
 
 import './index.scss';
@@ -17,20 +16,17 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
+render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <PersistGate persistor={persistor}>
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
           <App />
-        </PersistGate>
-      </BrowserRouter>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root'),
-  () => {
-
-  }
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

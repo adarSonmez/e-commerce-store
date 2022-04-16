@@ -17,7 +17,7 @@ export const signInWithGoogle = async () => {
     const user = result.user;
     return user;
   } catch (err) {
-    console.error(err);
+    alert(err.code);
   }
 };
 
@@ -27,7 +27,7 @@ export const signUp = async (email, password) => {
     const user = await createUserWithEmailAndPassword(auth, email, password);
     return user;
   } catch (err) {
-    console.error(err);
+    alert(err.code);
   }
 };
 
@@ -37,7 +37,7 @@ export const signIn = async (email, password) => {
     const user = await signInWithEmailAndPassword(auth, email, password);
     return user;
   } catch (err) {
-    console.error(err);
+    alert(err.code);
   }
 };
 
@@ -46,6 +46,6 @@ export const logout = async () => {
   try {
     return await signOut(auth);
   } catch (err) {
-    console.error(err);
+    alert(err.code);
   }
 };

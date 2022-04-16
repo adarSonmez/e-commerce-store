@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { selectCollection } from '../../redux/shop/shop.selectors';
@@ -8,16 +8,13 @@ import CollectionItem from '../../components/collection-item/CollectionItem';
 import './CollectionPage.scss';
 
 function CollectionPage() {
-  const params = useParams();
-  const collection = useSelector(selectCollection(params.collectionId));
-  const navigate = useNavigate();
+  const {collectionId} = useParams();
+  const collection = useSelector(selectCollection(collectionId));
 
-  // I know that looks so interesting.
-  // But this line handles some errors gracefully
-  if (collection.length === 0) return <div onLoad={navigate('/')} />;
+  if (!collection) return <div className='loading'>Loading...</div>;
   else {
-    const items = collection[0].items;
-    const title = collection[0].title;
+    const items = collection.items;
+    const title = collection.title;
 
     return (
       <div className="collection-page page">

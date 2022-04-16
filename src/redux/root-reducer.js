@@ -13,17 +13,18 @@ import userReducer from './user/user.reducer';
 import shopReducer from './shop/shop.reducer';
 import directoryReducer from './directory/directory.reducer';
 
-const persistConfig = {
-  key: 'root', // Location at reducer object we want to start storing everything.
-  storage,
-  whiteList: ['cart'], // Don't add user because session of users handles by firebase
-};
-
 const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
   directory: directoryReducer,
   shop: shopReducer,
 });
+
+const persistConfig = {
+  key: 'root', // Location at reducer object we want to start storing everything.
+  storage,
+  // whiteList: [],
+  blacklist: ['user']
+};
 
 export default persistReducer(persistConfig, rootReducer);

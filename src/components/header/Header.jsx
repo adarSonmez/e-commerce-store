@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { useSelector } from 'react-redux';
 
 import { selectUserAuth } from '../../redux/user/user.selectors';
 import { logout } from '../../firebase/userAuth';
@@ -11,9 +10,10 @@ import CartIcon from '../cart-icon/CartIcon';
 import LOGO_URL from '../../assets/logo2.png';
 import './Header.scss';
 
-function Header({ userAuth, userName }) {
-  const path = useLocation().pathname;
-
+function Header({ userName }) {
+  const { pathname } = useLocation();
+  const userAuth = useSelector(selectUserAuth);
+  
   // Create header with navigation links and logo.
   return (
     <div className="header">
@@ -39,12 +39,12 @@ function Header({ userAuth, userName }) {
         {(() => {
           if (userAuth) {
             return (
-              <div className="option" onClick={() => logout()}>
+              <div className="option" onClick={logout}>
                 SIGN OUT
               </div>
             );
           } else {
-            if (path === '/signup')
+            if (pathname === '/signup')
               return (
                 <NavLink className="option" to="/signin">
                   SIGN IN
@@ -65,8 +65,4 @@ function Header({ userAuth, userName }) {
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  userAuth: selectUserAuth,
-});
-
-export default connect(mapStateToProps)(Header);
+export default Header;

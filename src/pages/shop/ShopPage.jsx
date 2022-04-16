@@ -1,29 +1,32 @@
 import React, { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { getAllDocuments } from '../../firebase/controller';
 
 import { updateCollections } from '../../redux/shop/shop.actions';
+import CollectionOverview from '../../components/collection-overview/CollectionOverview';
+import CollectionPage from '../collection/CollectionPage';
 import { convertCollectionsSnapshotToMap } from '../../redux/shop/shop.utils';
 
-function ShopPage({ updateCollections }) {
+// Get updated categories on every render
+function ShopPage() {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getAllDocuments('collections')
-      .then((allDocs) => convertCollectionsSnapshotToMap(allDocs))
-      .then((map) => updateCollections(map));
+    getAllDocuments('collections', async (docs) => {
+      const mapped = await convertCollectionsSnapshotToMap(docs);
+      dispatch(updateCollections(mapped));
+    });
   });
 
-  // Map through each collection (hats, sneaker...) and display them.
   return (
     <div className="shop-page page">
-      <Outlet />
+      <Routes>
+        <Route path="" element={<CollectionOverview />} />
+        <Route path=":collectionId" element={<CollectionPage />} />
+      </Routes>
     </div>
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  updateCollections: (collectionsMap) =>
-    dispatch(updateCollections(collectionsMap)),
-});
-
-export default connect(null, mapDispatchToProps)(ShopPage);
+export default ShopPage;

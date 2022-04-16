@@ -6,11 +6,6 @@ const INITIAL_STATE = {
   cartItems: [],
 };
 
-/* 
-What does state = INITIAL_STATE means as parameter?
-Default function parameters allow formal parameters to be initialized with 
-default values if no value or undefined is passed. 
-*/
 const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case cartActionTypes.TOGGLE_CART_HIDDEN:
