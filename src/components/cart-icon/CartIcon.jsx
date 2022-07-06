@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { toggleCartHidden } from '../../redux/cart/cart.actions';
+import { toggleHidden } from '../../redux/cart/cart.slice';
 import { selectCartItemsCount } from '../../redux/cart/cart.selectors';
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 import './CartIcon.scss';
@@ -11,7 +11,7 @@ function CartIcon() {
   const dispatch = useDispatch();
   const itemCount = useSelector(selectCartItemsCount);
 
-  const toggleDropdown = () => dispatch(toggleCartHidden());
+  const toggleDropdown = () => dispatch(toggleHidden());
 
   return (
     <div className="cart-icon" onClick={toggleDropdown}>

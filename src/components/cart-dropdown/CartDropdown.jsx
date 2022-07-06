@@ -6,7 +6,7 @@ import {
   selectCartHidden,
   selectCartItems,
 } from '../../redux/cart/cart.selectors';
-import { toggleCartHidden } from '../../redux/cart/cart.actions';
+import { toggleHidden } from '../../redux/cart/cart.slice';
 
 import CustomButton from '../custom-button/CustomButton';
 import CartItem from '../cart-item/CartItem';
@@ -21,7 +21,7 @@ function CartDropdown() {
 
   const handleGoToClick = () => {
     navigate('/checkout');
-    dispatch(toggleCartHidden());
+    dispatch(toggleHidden());
   };
 
   return (

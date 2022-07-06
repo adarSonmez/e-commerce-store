@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import {
-  clearItemFromCart,
+  clearItem,
   addItem,
-  removeItem,
-} from '../../redux/cart/cart.actions';
+  reduceItem,
+} from '../../redux/cart/cart.slice';
 import './CheckoutItem.scss';
 
 // Change quantity of each item  (add, remove, clear)
@@ -13,9 +13,9 @@ function CheckoutItem({ cartItem }) {
   const { name, imageUrl, price, quantity } = cartItem;
   const dispatch = useDispatch();
 
-  const clearItem = () => dispatch(clearItemFromCart(cartItem));
+  const clearItemFromCart = () => dispatch(clearItem(cartItem));
   const increaseItem = () => dispatch(addItem(cartItem));
-  const decreaseItem = () => dispatch(removeItem(cartItem));
+  const decreaseItem = () => dispatch(reduceItem(cartItem));
 
   return (
     <div className="checkout-item">
@@ -35,7 +35,7 @@ function CheckoutItem({ cartItem }) {
         </div>
       </span>
       <span className="price">{price}</span>
-      <div className="remove-button" onClick={clearItem}>
+      <div className="remove-button" onClick={clearItemFromCart}>
         &#10005;
       </div>
     </div>

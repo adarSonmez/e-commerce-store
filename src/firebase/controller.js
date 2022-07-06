@@ -6,17 +6,18 @@ import {
   addDoc,
   setDoc,
   deleteDoc,
+  getDocs,
 } from 'firebase/firestore';
 
 // Get firestore database
 const db = getFirestore();
 
 // Get all documents in a collection
-export const getAllDocuments = async (colName, callback) => {
+export const getAllDocuments = async (colName) => {
   try {
     const colRef = collection(db, colName);
-    onSnapshot(colRef, (snapshot) => callback(snapshot));
-    // or: return getDocs(colRef);
+    return await getDocs(colRef);
+    // or onSnapshot(colRef, (snapshot) => callback(snapshot));
   } catch (err) {
     console.error(err);
   }

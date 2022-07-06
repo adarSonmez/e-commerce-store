@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addItem } from '../../redux/cart/cart.actions';
+import { addItem } from '../../redux/cart/cart.slice';
 import CustomButton from '../custom-button/CustomButton';
 import './SliderItem.scss';
 
