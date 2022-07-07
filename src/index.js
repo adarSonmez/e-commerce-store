@@ -8,8 +8,8 @@ import './firebase/userAuth';
 
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-//import { PersistGate } from 'redux-persist/integration/react';
-import store from './redux/store';
+import { store, persistor } from './store/index';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import './index.scss';
 import App from './App';
@@ -19,9 +19,11 @@ import reportWebVitals from './reportWebVitals';
 render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

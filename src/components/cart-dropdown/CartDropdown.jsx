@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import {
   selectCartHidden,
   selectCartItems,
-} from '../../redux/cart/cart.selectors';
-import { toggleHidden } from '../../redux/cart/cart.slice';
+} from '../../store/features/cart/cart.selectors';
+import { toggleHidden } from '../../store/features/cart/cart.slice';
 
 import CustomButton from '../custom-button/CustomButton';
 import CartItem from '../cart-item/CartItem';

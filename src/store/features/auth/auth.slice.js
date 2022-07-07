@@ -1,11 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { onAuthStateChanged } from 'firebase/auth';
-import { getDocByID } from '../../firebase/controller';
+import { getDocByID } from '../../../firebase/controller';
 
 const INITIAL_STATE = {
   status: 'idle',
   user: {
-    userAuth: null,
     userInfo: {
       id: null,
       name: null,
@@ -14,8 +12,8 @@ const INITIAL_STATE = {
   },
 };
 
-export const userSlice = createSlice({
-  name: 'user',
+export const authSlice = createSlice({
+  name: 'auth',
   initialState: INITIAL_STATE,
   reducers: {},
   extraReducers: (builder) => {
@@ -35,19 +33,17 @@ export const userSlice = createSlice({
 });
 
 export const setCurrentUser = createAsyncThunk(
-  'user/setCurrentUser',
-  async (auth) => {
-    let user = INITIAL_STATE.user;
-    onAuthStateChanged(auth, async (userAuth) => {
-      if (userAuth !== null) {
-        await getDocByID('users', userAuth, (snapshot) => {
-          let userInfo = { ...snapshot.data(), id: snapshot.id };
-          user = { userAuth, userInfo };
-        });
-      }
-    });
-    return user;
+  'auth/setCurrentUser',
+  async (userAuth) => {
+    if (userAuth !== null) {
+      const response = await getDocByID('users', userAuth);
+      const { email, name } = response.data();
+      let userInfo = { email, name, id: response.id };
+      return { userInfo };
+    } else {
+      return INITIAL_STATE.user;
+    }
   }
 );
 
-export default userSlice.reducer;
+export default authSlice.reducer;

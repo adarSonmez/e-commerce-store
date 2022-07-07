@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { connect, useDispatch } from 'react-redux';
-import { setCurrentUser } from './redux/user/user.slice';
-import { createStructuredSelector } from 'reselect';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser } from './store/features/auth/auth.slice';
 
 import { auth } from './firebase/userAuth';
-import { selectUserAuth, selectUserInfo } from './redux/user/user.selectors';
+import { selectUserInfo } from './store/features/auth/auth.selectors';
 
 import Homepage from './pages/homepage/Homepage';
 import ShopPage from './pages/shop/ShopPage';
@@ -13,13 +12,16 @@ import CheckoutPage from './pages/checkout/CheckoutPage';
 import SignIn from './pages/sign-in/SignIn';
 import SignUp from './pages/sign-up/SignUp';
 import Header from './components/header/Header';
+import { onAuthStateChanged } from 'firebase/auth';
 
-function App({ userInfo, userAuth }) {
+function App() {
+  const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Listen user's current status. (Observable pattern)
-    dispatch(setCurrentUser(auth));
+    onAuthStateChanged(auth, async (auth) => {
+      dispatch(setCurrentUser(auth));
+    });
   }, [dispatch]);
 
   return (
@@ -31,16 +33,16 @@ function App({ userInfo, userAuth }) {
         <Route
           path="/checkout"
           element={
-            userAuth ? <CheckoutPage /> : <Navigate replace to="/signup" />
+            userInfo.id ? <CheckoutPage /> : <Navigate replace to="/signup" />
           }
         />
         <Route
           path="/signin"
-          element={userAuth ? <Navigate replace to="/" /> : <SignIn />}
+          element={userInfo.id ? <Navigate replace to="/" /> : <SignIn />}
         />
         <Route
           path="/signup"
-          element={userAuth ? <Navigate replace to="/" /> : <SignUp />}
+          element={userInfo.id ? <Navigate replace to="/" /> : <SignUp />}
         />
         {/** No match route approach */}
         <Route path="*" element={<Navigate to="/" />} />
@@ -49,13 +51,4 @@ function App({ userInfo, userAuth }) {
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  userInfo: selectUserInfo,
-  userAuth: selectUserAuth,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

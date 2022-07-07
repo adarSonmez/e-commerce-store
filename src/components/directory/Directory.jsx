@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import MenuItem from '../menu-item/MenuItem';
-import { selectDirectorySections } from '../../redux/directory/directory.selectors';
+import { selectDirectorySections } from '../../store/features/directory/directory.selectors';
 import './Directory.scss';
 
 // Display each menu item (Iterate through sections).

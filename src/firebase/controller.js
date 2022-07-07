@@ -1,12 +1,12 @@
 import {
   getFirestore,
   collection,
-  onSnapshot,
   doc,
   addDoc,
   setDoc,
   deleteDoc,
   getDocs,
+  getDoc,
 } from 'firebase/firestore';
 
 // Get firestore database
@@ -24,12 +24,12 @@ export const getAllDocuments = async (colName) => {
 };
 
 // Get a single document by ID (real time update with onSnapshot)
-export const getDocByID = async (colName, userAuth, callback) => {
+export const getDocByID = async (colName, userAuth) => {
   const docRef = doc(db, colName, userAuth.uid);
 
-  onSnapshot(docRef, (snapshot) => callback(snapshot));
+  return getDoc(docRef);
   // Other ways to fetch data from database (not live)
-  // 1) return getDoc(docRef).then( ... )
+  // 1)  onSnapshot(docRef, (snapshot) => callback(snapshot));
   // 2) fetch(url).then(r => r.json).then( ... )
 };
 

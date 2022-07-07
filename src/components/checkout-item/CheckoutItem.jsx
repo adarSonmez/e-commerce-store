@@ -5,7 +5,7 @@ import {
   clearItem,
   addItem,
   reduceItem,
-} from '../../redux/cart/cart.slice';
+} from '../../store/features/cart/cart.slice';
 import './CheckoutItem.scss';
 
 // Change quantity of each item  (add, remove, clear)

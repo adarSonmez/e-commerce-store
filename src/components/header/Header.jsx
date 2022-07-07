@@ -2,17 +2,17 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { selectUserAuth } from '../../redux/user/user.selectors';
 import { logout } from '../../firebase/userAuth';
 import CartDropdown from '../cart-dropdown/CartDropdown';
 import CartIcon from '../cart-icon/CartIcon';
 
 import LOGO_URL from '../../assets/logo2.png';
 import './Header.scss';
+import { selectUserInfo } from '../../store/features/auth/auth.selectors';
 
 function Header({ userName }) {
   const { pathname } = useLocation();
-  const userAuth = useSelector(selectUserAuth);
+  const user = useSelector(selectUserInfo);
   
   // Create header with navigation links and logo.
   return (
@@ -37,7 +37,7 @@ function Header({ userName }) {
 
         {/** Toggling sign in and sign up buttons */}
         {(() => {
-          if (userAuth) {
+          if (user.id) {
             return (
               <div className="option" onClick={logout}>
                 SIGN OUT

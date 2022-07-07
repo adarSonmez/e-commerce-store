@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { loadCollections } from '../../redux/shop/shop.slice';
+import { loadCollections } from '../../store/features/shop/shop.slice';
 import CollectionOverview from '../../components/collection-overview/CollectionOverview';
 import CollectionPage from '../collection/CollectionPage';
 
