@@ -5,7 +5,7 @@ export const shopSlice = createSlice({
   name: 'shop',
   initialState: {
     collections: null,
-    status: 'idle',
+    status: 'loading',
   },
   reducers: {},
   extraReducers: (builder) => {

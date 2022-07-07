@@ -16,7 +16,7 @@ import './CartDropdown.scss';
 function CartDropdown() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cartItems = useSelector(selectCartItems);
+  const cartItems = Object.values(useSelector(selectCartItems));
   const cartHidden = useSelector(selectCartHidden);
 
   const handleGoToClick = () => {

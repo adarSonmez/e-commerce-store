@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { selectShopRequestStatus } from '../../store/features/shop/shop.selectors';
 import SliderItem from '../slider-item/SliderItem';
 import './CollectionSlider.scss';
 
 function CollectionSlider({ title, items, routeName }) {
   const [current, setCurrent] = useState(0);
+
+  const shopRequestStatus = useSelector(selectShopRequestStatus);
   const navigate = useNavigate();
 
   const onNavigateHandler = () => navigate(routeName);
@@ -26,6 +30,8 @@ function CollectionSlider({ title, items, routeName }) {
     return wrapperTransform;
   };
 
+
+  if (shopRequestStatus === "loading") return <div className="loading">Loading...</div>;
   return (
     <div className="slider-container">
       <h1 className="title" onClick={onNavigateHandler}>

@@ -16,6 +16,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 function App() {
   const userInfo = useSelector(selectUserInfo);
+  // or useSelector(state => state.auth.userInfo);
   const dispatch = useDispatch();
 
   useEffect(() => {

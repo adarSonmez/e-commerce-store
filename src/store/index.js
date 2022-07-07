@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
 });
 
 const persistConfig = {
-  key: 'root', // Location at reducer object we want to start storing everything.
+  key: 'root',
   storage,
   // whiteList: [],
   blacklist: ['auth'],

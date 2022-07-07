@@ -2,6 +2,12 @@ import { createSelector } from 'reselect';
 
 const selectShop = (state) => state.shop;
 
+// Select thunk status
+export const selectShopRequestStatus = createSelector(
+  [selectShop],
+  (shop) => shop.status
+);
+
 export const selectCollections = createSelector(
   [selectShop],
   (shop) => shop.collections

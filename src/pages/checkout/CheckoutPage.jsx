@@ -12,7 +12,7 @@ import './CheckoutPage.scss';
 /* Since this is a portfolio project, payment cannot be made, 
   but test payment can be made with the card number given by stripe. */
 function CheckoutPage() {
-  const cartItems = useSelector(selectCartItems);
+  const cartItems = Object.values(useSelector(selectCartItems));
   const total = useSelector(selectCartTotal);
 
   return (

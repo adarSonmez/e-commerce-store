@@ -6,7 +6,27 @@ export const directorySlice = createSlice({
   initialState: {
     sections: DIRECTORY_DATA,
   },
-  reducers: {},
+  reducers: {
+    /* 
+    forLearningPurpose: {
+      reducer: (state, action) => {
+        state.sections = action.payload.sections;
+      },
+      // prepare payload for the reducer
+      prepare: (param1, param2) => {
+        return {
+          payload: {
+            id: nanoid,
+            date: new Date().toISOString(),
+            param1,
+            param2,
+            sections: DIRECTORY_DATA,
+          },
+        };
+      },
+    }, 
+    */
+  },
 });
 
 export default directorySlice.reducer;

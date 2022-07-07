@@ -2,16 +2,20 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { selectCollection } from '../../store/features/shop/shop.selectors';
+import {
+  selectCollection,
+  selectShopRequestStatus,
+} from '../../store/features/shop/shop.selectors';
 import CollectionItem from '../../components/collection-item/CollectionItem';
 
 import './CollectionPage.scss';
 
 function CollectionPage() {
-  const {collectionId} = useParams();
+  const { collectionId } = useParams();
   const collection = useSelector(selectCollection(collectionId));
+  const shopRequestStatus = useSelector(selectShopRequestStatus);
 
-  if (!collection) return <div className='loading'>Loading...</div>;
+  if (shopRequestStatus === "loading") return <div className="loading">Loading...</div>;
   else {
     const items = collection.items;
     const title = collection.title;
