@@ -2,9 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 
 // The order of importing firebase modules is important
-import './firebase/config';
-import './firebase/controller';
-import './firebase/userAuth';
+import './utils/firebase/config';
+import './utils/firebase/controller';
+import './utils/firebase/userAuth';
 
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -15,13 +15,17 @@ import './index.scss';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from './utils/stripe/config';
 
 render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <App />
+          <Elements stripe={stripePromise}>
+            <App />
+          </Elements>
         </BrowserRouter>
       </PersistGate>
     </Provider>

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getAllDocuments } from '../../../firebase/controller';
+import { getAllDocuments } from '../../../utils/firebase/controller';
 
 export const shopSlice = createSlice({
   name: 'shop',

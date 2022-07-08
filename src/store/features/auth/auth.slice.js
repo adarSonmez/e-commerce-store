@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getDocByID } from '../../../firebase/controller';
+import { getDocByID } from '../../../utils/firebase/controller';
 
 const INITIAL_STATE = {
   status: 'idle',

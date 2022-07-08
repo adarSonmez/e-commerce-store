@@ -6,8 +6,8 @@ import {
   selectCartTotal,
 } from '../../store/features/cart/cart.selectors';
 import CheckoutItem from '../../components/checkout-item/CheckoutItem';
-import StripeCheckoutButton from '../../components/stripe-button/StripeButton';
 import './CheckoutPage.scss';
+import PaymentForm from '../../components/payment-form/PaymentForm';
 
 /* Since this is a portfolio project, payment cannot be made, 
   but test payment can be made with the card number given by stripe. */
@@ -38,13 +38,14 @@ function CheckoutPage() {
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
       <div className="total">TOTAL: ${total}</div>
+      <PaymentForm />
+
       <div className="test-warning">
         Please use the following test credit card for payments!
         <p className="test-cart-info">
           4242 4242 4242 4242 - Exp: 01/30 - CVC: 123
         </p>
       </div>
-      <StripeCheckoutButton price={total} />
     </div>
   );
 }

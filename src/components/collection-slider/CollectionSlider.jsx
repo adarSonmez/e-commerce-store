@@ -30,8 +30,8 @@ function CollectionSlider({ title, items, routeName }) {
     return wrapperTransform;
   };
 
-
-  if (shopRequestStatus === "loading") return <div className="loading">Loading...</div>;
+  if (shopRequestStatus === 'loading')
+    return <div className="loading">Loading...</div>;
   return (
     <div className="slider-container">
       <h1 className="title" onClick={onNavigateHandler}>

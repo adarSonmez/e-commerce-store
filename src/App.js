@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser } from './store/features/auth/auth.slice';
 
-import { auth } from './firebase/userAuth';
+import { auth } from './utils/firebase/userAuth';
 import { selectUserInfo } from './store/features/auth/auth.selectors';
 
 import Homepage from './pages/homepage/Homepage';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { signIn, signInWithGoogle } from '../../firebase/userAuth';
+import { signIn, signInWithGoogle } from '../../utils/firebase/userAuth';
 import FormInput from '../../components/form-input/FormInput';
 import CustomButton from '../../components/custom-button/CustomButton';
 import './SignIn.scss';
