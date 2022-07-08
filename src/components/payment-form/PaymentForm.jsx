@@ -61,7 +61,7 @@ function PaymentForm() {
           style={{ margin: 'auto', marginTop: '30px' }}
           isLoading={isProcessingPayment}
         >
-          Pay Now
+          {isProcessingPayment ? 'Processing...' : 'Pay Now'}
         </CustomButton>
       </form>
     </div>
