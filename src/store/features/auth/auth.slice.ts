@@ -1,14 +1,24 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getDocByID } from '../../../utils/firebase/controller';
 
-const INITIAL_STATE = {
+export interface User {
+  id?: string | null;
+  name?: string | null;
+  email?: string | null;
+}
+
+export interface AuthState {
+  status: string;
+  user: User;
+  error?: string | null;
+}
+
+const INITIAL_STATE: AuthState = {
   status: 'idle',
   user: {
-    userInfo: {
-      id: null,
-      name: null,
-      email: null,
-    },
+    id: null,
+    name: null,
+    email: null,
   },
 };
 
@@ -37,9 +47,9 @@ export const setCurrentUser = createAsyncThunk(
   async (userAuth) => {
     if (userAuth !== null) {
       const response = await getDocByID('users', userAuth);
-      const { email, name } = response.data();
-      let userInfo = { email, name, id: response.id };
-      return { userInfo };
+      const { email, name }: any = response.data();
+
+      return { email, name, id: response.id };
     } else {
       return INITIAL_STATE.user;
     }

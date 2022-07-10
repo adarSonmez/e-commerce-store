@@ -1,11 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import DIRECTORY_DATA from './directory.data';
 
+export interface Section {
+  title: string;
+  imageUrl: string;
+  id: number;
+  linkUrl: string;
+}
+
+export interface DirectoryState {
+  sections: Section[];
+}
+
+const INITIAL_STATE: DirectoryState = { sections: DIRECTORY_DATA };
+
 export const directorySlice = createSlice({
   name: 'directory',
-  initialState: {
-    sections: DIRECTORY_DATA,
-  },
+  initialState: INITIAL_STATE,
   reducers: {
     /* 
     forLearningPurpose: {
