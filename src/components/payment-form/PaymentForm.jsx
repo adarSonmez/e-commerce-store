@@ -59,7 +59,7 @@ function PaymentForm() {
         <CardElement />
         <CustomButton
           style={{ margin: 'auto', marginTop: '30px' }}
-          isLoading={isProcessingPayment}
+          disabled={isProcessingPayment}
         >
           {isProcessingPayment ? 'Processing...' : 'Pay Now'}
         </CustomButton>

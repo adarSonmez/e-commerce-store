@@ -2,15 +2,10 @@ import {
   createSlice,
   createEntityAdapter,
   EntityState,
+  PayloadAction,
 } from '@reduxjs/toolkit';
 
-export interface CartItem {
-  id: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-  quantity: number;
-}
+import { ShopItem as CartItem } from '../shop/shop.slice';
 
 export interface CartState extends CartItem {
   hidden: boolean;
@@ -36,7 +31,7 @@ export const cartSlice = createSlice({
     toggleHidden: (state) => {
       state.hidden = !state.hidden;
     },
-    addItem: (state, action) => {
+    addItem: (state, action: PayloadAction<CartItem>) => {
       const existingCartItem = state.entities[action.payload.id];
 
       if (existingCartItem) {
@@ -45,7 +40,7 @@ export const cartSlice = createSlice({
         cartItemAdapter.addOne(state, { ...action.payload, quantity: 1 });
       }
     },
-    reduceItem: (state, action) => {
+    reduceItem: (state, action: PayloadAction<CartItem>) => {
       const existingCartItem = state.entities[action.payload.id];
 
       if (existingCartItem?.quantity === 1) {
@@ -56,7 +51,7 @@ export const cartSlice = createSlice({
         }
       }
     },
-    clearItem: (state, action) => {
+    clearItem: (state, action: PayloadAction<CartItem>) => {
       cartItemAdapter.removeOne(state, action.payload.id);
     },
   },

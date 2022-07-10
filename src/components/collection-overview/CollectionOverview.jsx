@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import CollectionSlider from '../collection-slider/CollectionSlider';
-import { selectCollectionsAsArray } from '../../store/features/shop/shop.selectors.js';
+import { selectCollectionsAsArray } from '../../store/features/shop/shop.selectors';
 
 // Container of slider components
 function CollectionOverview() {

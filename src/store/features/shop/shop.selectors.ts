@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { RootState } from '../..';
 
-const selectShop = (state) => state.shop;
+const selectShop = (state: RootState) => state.shop;
 
 // Select thunk status
 export const selectShopRequestStatus = createSelector(
@@ -22,7 +23,7 @@ export const selectCollectionsAsArray = createSelector(
       : []
 );
 
-export const selectCollection = (collectionUrlParam) =>
+export const selectCollection = (collectionUrlParam: string) =>
   createSelector([selectCollections], (collections) =>
     collections ? collections[collectionUrlParam] : null
   );

@@ -10,7 +10,6 @@ function CustomButton({ children, ...otherProps }) {
         ${otherProps.inverted ? 'inverted' : ''}
         custom-button`}
       {...otherProps}
-      disabled={otherProps.isLoading}
     >
       {children}
     </button>
