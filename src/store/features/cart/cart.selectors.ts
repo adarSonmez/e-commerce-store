@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { RootState } from '../..';
+import { ShopItem } from '../shop/shop.slice';
 
 const selectCart = (state: RootState) => state.cart;
 
@@ -18,19 +19,18 @@ export const selectCartHidden = createSelector(
 export const selectCartItemsCount = createSelector(
   [selectCartItems],
   (cartItems) =>
-    Object.values(cartItems).reduce((accumulatedQuantity, cartItem) => {
-      if (cartItem?.quantity) {
-        return (accumulatedQuantity += cartItem.quantity);
-      }
-      return accumulatedQuantity;
-    }, 0)
+    Object.values(cartItems).reduce(
+      (accumulatedQuantity, cartItem) =>
+        (accumulatedQuantity += (cartItem as ShopItem).quantity),
+      0
+    )
 );
 
 export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
-  Object.values(cartItems).reduce((accumulatedQuantity, cartItem) => {
-    if (cartItem?.price) {
-      return (accumulatedQuantity += cartItem.price * cartItem.quantity);
-    }
-    return accumulatedQuantity;
-  }, 0)
+  Object.values(cartItems).reduce(
+    (accumulatedQuantity, cartItem) =>
+      (accumulatedQuantity +=
+        (cartItem as ShopItem).price * (cartItem as ShopItem).quantity),
+    0
+  )
 );

@@ -21,7 +21,6 @@ const cartItemAdapter = createEntityAdapter<CartItem>({
 
 const initialState = cartItemAdapter.getInitialState({
   hidden: true,
-  // cartItems: [],
 });
 
 export const cartSlice = createSlice({

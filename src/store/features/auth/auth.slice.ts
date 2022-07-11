@@ -1,16 +1,17 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { getDocByID } from '../../../utils/firebase/controller';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { User as userAuth } from 'firebase/auth';
+import { getDocByID, StoredUser } from '../../../utils/firebase/controller';
 
 export interface User {
-  id?: string | null;
-  name?: string | null;
-  email?: string | null;
+  id: string | null;
+  name: string | null;
+  email: string | null;
 }
 
 export interface AuthState {
   status: 'loading' | 'idle' | 'failed';
   user: User;
-  error?: string | null;
+  error?: string;
 }
 
 const initialState: AuthState = {
@@ -31,13 +32,10 @@ export const authSlice = createSlice({
       .addCase(setCurrentUser.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(
-        setCurrentUser.fulfilled,
-        (state, action: PayloadAction<User>) => {
-          state.status = 'idle';
-          state.user = action.payload;
-        }
-      )
+      .addCase(setCurrentUser.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.user = action.payload;
+      })
       .addCase(setCurrentUser.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
@@ -47,10 +45,10 @@ export const authSlice = createSlice({
 
 export const setCurrentUser = createAsyncThunk(
   'auth/setCurrentUser',
-  async (userAuth) => {
+  async (userAuth: userAuth): Promise<User> => {
     if (userAuth !== null) {
       const response = await getDocByID('users', userAuth);
-      const { email, name }: any = response.data();
+      const { email, name } = response.data() as StoredUser;
 
       return { email, name, id: response.id };
     } else {

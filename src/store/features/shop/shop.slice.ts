@@ -1,4 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { DocumentData } from 'firebase/firestore';
 import { getAllDocuments } from '../../../utils/firebase/controller';
 
 export interface ShopItem {
@@ -17,10 +18,10 @@ export interface Collection {
 }
 
 export interface Collections {
-  collections: { [key: string]: Collection } | null;
+  [key: string]: Collection;
 }
-
-export interface ShopState extends Collections {
+export interface ShopState {
+  collections: Collections | null;
   status: 'loading' | 'idle' | 'failed';
   error?: string | null;
 }
@@ -52,22 +53,21 @@ export const shopSlice = createSlice({
 
 export const loadCollections = createAsyncThunk(
   'shop/loadCollections',
-  async () => {
-    const response: any = await getAllDocuments('collections');
-    return (
-      response.docs
-        .map((doc: any) => {
-          return {
-            id: doc.id,
-            ...doc.data(),
-          };
-        })
-        // Array to map
-        .reduce((accumulator: any, collection: Collection) => {
-          accumulator[collection.routeName] = collection;
-          return accumulator;
-        }, {})
-    );
+  async (): Promise<Collections> => {
+    const response = await getAllDocuments('collections');
+    const collections: Collections = await response?.docs
+      .map((doc: DocumentData) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      })
+      // Array to map
+      .reduce((accumulator, collection: Collection) => {
+        accumulator[collection.routeName] = collection;
+        return accumulator;
+      }, {} as Collections);
+    return collections;
   }
 );
 

@@ -1,3 +1,4 @@
+import { User } from 'firebase/auth';
 import {
   getFirestore,
   collection,
@@ -13,7 +14,7 @@ import {
 const db = getFirestore();
 
 // Get all documents in a collection
-export const getAllDocuments = async (colName) => {
+export const getAllDocuments = async (colName: string) => {
   try {
     const colRef = collection(db, colName);
     return await getDocs(colRef);
@@ -24,7 +25,7 @@ export const getAllDocuments = async (colName) => {
 };
 
 // Get a single document by ID (real time update with onSnapshot)
-export const getDocByID = async (colName, userAuth) => {
+export const getDocByID = async (colName: string, userAuth: User) => {
   const docRef = doc(db, colName, userAuth.uid);
 
   return getDoc(docRef);
@@ -34,7 +35,7 @@ export const getDocByID = async (colName, userAuth) => {
 };
 
 // Delete a document by ID
-export const deleteDocByID = async (colName, id) => {
+export const deleteDocByID = async (colName: string, id: string) => {
   try {
     const docRef = doc(db, colName, id);
     await deleteDoc(docRef);
@@ -44,7 +45,7 @@ export const deleteDocByID = async (colName, id) => {
 };
 
 // Add a document to specified collection (if not exist create a collection)
-export const addDocToCollection = async (colName, objectToAdd) => {
+export const addDocToCollection = async (colName: string, objectToAdd: any) => {
   try {
     const colRef = collection(db, colName);
     await addDoc(colRef, objectToAdd);
@@ -53,8 +54,21 @@ export const addDocToCollection = async (colName, objectToAdd) => {
   }
 };
 
+type AdditionalUserData = {
+  name?: string;
+};
+
+export type StoredUser = {
+  name: string;
+  email: string;
+  createdAt: string;
+};
+
 // Create user profile, and save in firestore
-export const createUserProfileDocument = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async <T extends AdditionalUserData>(
+  userAuth: User,
+  additionalData: T
+) => {
   if (!userAuth) return;
 
   const docRef = doc(db, 'users', userAuth.uid);
