@@ -1,6 +1,4 @@
-import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import { logout } from '../../utils/firebase/userAuth';
 import CartDropdown from '../cart-dropdown/CartDropdown';
@@ -9,11 +7,12 @@ import CartIcon from '../cart-icon/CartIcon';
 import LOGO_URL from '../../assets/logo2.png';
 import './Header.scss';
 import { selectUserInfo } from '../../store/features/auth/auth.selectors';
+import { useAppSelector } from '../../store/hooks';
 
-function Header({ userName }) {
+const Header = ({ userName }: { userName: string | null }) => {
   const { pathname } = useLocation();
-  const user = useSelector(selectUserInfo);
-  
+  const user = useAppSelector(selectUserInfo);
+
   // Create header with navigation links and logo.
   return (
     <div className="header">
@@ -63,6 +62,6 @@ function Header({ userName }) {
       <CartDropdown />
     </div>
   );
-}
+};
 
 export default Header;

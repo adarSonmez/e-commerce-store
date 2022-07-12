@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { signIn, signInWithGoogle } from '../../utils/firebase/userAuth';
@@ -6,12 +6,12 @@ import FormInput from '../../components/form-input/FormInput';
 import CustomButton from '../../components/custom-button/CustomButton';
 import './SignIn.scss';
 
-function SignIn() {
+const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   // Clear fields after submission
-  const signInWithEmail = async (event) => {
+  const signInWithEmail = async (event: FormEvent) => {
     event.preventDefault();
     await signIn(email, password);
 
@@ -20,7 +20,7 @@ function SignIn() {
   };
 
   // Update state on typing
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
 
     if (name === 'email') setEmail(value);
@@ -54,11 +54,8 @@ function SignIn() {
           required
         />
         <div className="buttons">
-          <CustomButton type="button" onClick={signInWithEmail}>
-            {' '}
-            Sign in{' '}
-          </CustomButton>
-          <CustomButton type="button" onClick={signInWithGoogle} google="true">
+          <CustomButton onClick={signInWithEmail}> Sign in </CustomButton>
+          <CustomButton onClick={signInWithGoogle} google="true">
             {' '}
             sign In With Google{' '}
           </CustomButton>
@@ -66,6 +63,6 @@ function SignIn() {
       </form>
     </div>
   );
-}
+};
 
 export default SignIn;

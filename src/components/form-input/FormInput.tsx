@@ -1,8 +1,21 @@
-import React from 'react';
+import { ChangeEventHandler, FC } from 'react';
 import './FormInput.scss';
 
+type FormInputProps = {
+  label: string;
+  name: string;
+  type: string;
+  value: string;
+  required: boolean;
+  handleChange: ChangeEventHandler; // (e: ChangeEvent<HTMLInputElement>) => void
+};
+
 // Form input with animated floating labels
-function FormInput({ handleChange, label, ...otherProps }) {
+const FormInput: FC<FormInputProps> = ({
+  handleChange,
+  label,
+  ...otherProps
+}) => {
   return (
     <div className="group">
       <input className="form-input" onChange={handleChange} {...otherProps} />
@@ -17,6 +30,6 @@ function FormInput({ handleChange, label, ...otherProps }) {
       ) : null}
     </div>
   );
-}
+};
 
 export default FormInput;

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser } from './store/features/auth/auth.slice';
 
 import { auth } from './utils/firebase/userAuth';
@@ -13,15 +12,16 @@ import SignIn from './pages/sign-in/SignIn';
 import SignUp from './pages/sign-up/SignUp';
 import Header from './components/header/Header';
 import { onAuthStateChanged } from 'firebase/auth';
+import { useAppDispatch, useAppSelector } from './store/hooks';
 
 function App() {
-  const userInfo = useSelector(selectUserInfo);
-  // or useSelector(state => state.auth.userInfo);
-  const dispatch = useDispatch();
+  const userInfo = useAppSelector(selectUserInfo);
+  // or useAppSelector(state => state.auth.userInfo);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (auth) => {
-      dispatch(setCurrentUser(auth));
+    onAuthStateChanged(auth, async (user) => {
+      dispatch(setCurrentUser(user));
     });
   }, [dispatch]);
 

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { User as userAuth } from 'firebase/auth';
+import { User as UserAuth } from 'firebase/auth';
 import { getDocByID, StoredUser } from '../../../utils/firebase/controller';
 
 export interface User {
@@ -45,7 +45,7 @@ export const authSlice = createSlice({
 
 export const setCurrentUser = createAsyncThunk(
   'auth/setCurrentUser',
-  async (userAuth: userAuth): Promise<User> => {
+  async (userAuth: UserAuth | null): Promise<User> => {
     if (userAuth !== null) {
       const response = await getDocByID('users', userAuth);
       const { email, name } = response.data() as StoredUser;

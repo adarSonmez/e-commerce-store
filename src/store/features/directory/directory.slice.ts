@@ -6,6 +6,7 @@ export interface Section {
   imageUrl: string;
   id: number;
   linkUrl: string;
+  size?: string;
 }
 
 export interface DirectoryState {

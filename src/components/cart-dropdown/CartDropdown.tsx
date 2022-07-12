@@ -1,22 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import {
+  selectCartArray,
   selectCartHidden,
-  selectCartItems,
 } from '../../store/features/cart/cart.selectors';
 import { toggleHidden } from '../../store/features/cart/cart.slice';
 
 import CustomButton from '../custom-button/CustomButton';
 import CartItem from '../cart-item/CartItem';
 import './CartDropdown.scss';
+import { ShopItem } from '../../store/features/shop/shop.slice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 // Shows the items added to the cart
-function CartDropdown() {
+const CartDropdown = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const cartItems = Object.values(useSelector(selectCartItems));
-  const cartHidden = useSelector(selectCartHidden);
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector(selectCartArray) as ShopItem[];
+  const cartHidden = useAppSelector(selectCartHidden) as boolean;
 
   const handleGoToClick = () => {
     navigate('/checkout');
@@ -37,6 +38,6 @@ function CartDropdown() {
       <CustomButton onClick={handleGoToClick}>GO TO CHECKOUT</CustomButton>
     </div>
   );
-}
+};
 
 export default CartDropdown;

@@ -1,35 +1,46 @@
-import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { FC, MouseEvent, SyntheticEvent, useRef } from 'react';
 
 import { addItem } from '../../store/features/cart/cart.slice';
+import { ShopItem } from '../../store/features/shop/shop.slice';
+import { useAppDispatch } from '../../store/hooks';
 import CustomButton from '../custom-button/CustomButton';
 import './SliderItem.scss';
 
-function SliderItem({ item, currentID, setCurrentOnClick }) {
-  const slideRef = useRef();
-  const dispatch = useDispatch();
+type SliderItemProps = {
+  item: ShopItem;
+  currentID: number;
+  setCurrentOnClick: (index: number) => void;
+};
+
+const SliderItem: FC<SliderItemProps> = ({
+  item,
+  currentID,
+  setCurrentOnClick,
+}) => {
+  const slideRef = useRef<HTMLLIElement>(null);
+  const dispatch = useAppDispatch();
   const { id, name, imageUrl, price } = item;
 
   const addItemToTheCart = () => dispatch(addItem(item));
 
   // Cool effect on mouse move
-  const handleMouseMove = (event) => {
-    const el = slideRef.current;
+  const handleMouseMove = (event: MouseEvent) => {
+    const el: HTMLElement = slideRef.current!;
     const r = el.getBoundingClientRect();
 
     el.style.setProperty(
       '--x',
-      event.clientX - (r.left + Math.floor(r.width / 2))
+      event.clientX - (r.left + Math.floor(r.width / 2)) + 'px'
     );
     el.style.setProperty(
       '--y',
-      event.clientY - (r.top + Math.floor(r.height / 2))
+      event.clientY - (r.top + Math.floor(r.height / 2)) + 'px'
     );
   };
 
   const handleMouseLeave = () => {
-    slideRef.current.style.setProperty('--x', 0);
-    slideRef.current.style.setProperty('--y', 0);
+    slideRef.current?.style.setProperty('--x', 0 + '');
+    slideRef.current?.style.setProperty('--y', 0 + '');
   };
 
   // Get clicked slide
@@ -37,8 +48,8 @@ function SliderItem({ item, currentID, setCurrentOnClick }) {
     setCurrentOnClick(id);
   };
 
-  const imageLoaded = (event) => {
-    event.target.style.opacity = 1;
+  const imageLoaded = (event: SyntheticEvent<HTMLImageElement, Event>) => {
+    (event.target as HTMLLIElement).style.opacity = '1';
   };
 
   // Set class names to slides to focus current one
@@ -78,6 +89,6 @@ function SliderItem({ item, currentID, setCurrentOnClick }) {
       </article>
     </li>
   );
-}
+};
 
 export default SliderItem;

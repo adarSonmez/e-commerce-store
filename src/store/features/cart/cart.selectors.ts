@@ -4,11 +4,18 @@ import { ShopItem } from '../shop/shop.slice';
 
 const selectCart = (state: RootState) => state.cart;
 
-export const selectCartItems = createSelector(
+export const selectCartEntities = createSelector(
   [selectCart],
   // or: (state) => state.cart,
   // ... other dependencies,
   (cart) => cart.entities
+);
+
+export const selectCartArray = createSelector(
+  [selectCartEntities],
+  // or: (state) => state.cart,
+  // ... other dependencies,
+  (items) => Object.values(items)
 );
 
 export const selectCartHidden = createSelector(
@@ -17,17 +24,17 @@ export const selectCartHidden = createSelector(
 );
 
 export const selectCartItemsCount = createSelector(
-  [selectCartItems],
+  [selectCartArray],
   (cartItems) =>
-    Object.values(cartItems).reduce(
+    cartItems.reduce(
       (accumulatedQuantity, cartItem) =>
         (accumulatedQuantity += (cartItem as ShopItem).quantity),
       0
     )
 );
 
-export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
-  Object.values(cartItems).reduce(
+export const selectCartTotal = createSelector([selectCartArray], (cartItems) =>
+  cartItems.reduce(
     (accumulatedQuantity, cartItem) =>
       (accumulatedQuantity +=
         (cartItem as ShopItem).price * (cartItem as ShopItem).quantity),

@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { loadCollections } from '../../store/features/shop/shop.slice';
 import CollectionOverview from '../../components/collection-overview/CollectionOverview';
 import CollectionPage from '../collection/CollectionPage';
+import { useAppDispatch } from '../../store/hooks';
 
 // Get updated categories on every render
-function ShopPage() {
-  const dispatch = useDispatch();
+const ShopPage = () => {
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(loadCollections());
@@ -22,6 +22,6 @@ function ShopPage() {
       </Routes>
     </div>
   );
-}
+};
 
 export default ShopPage;

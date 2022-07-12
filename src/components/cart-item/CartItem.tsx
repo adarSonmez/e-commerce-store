@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { ShopItem } from '../../store/features/shop/shop.slice';
 import './CartItem.scss';
 
 // Displays the quantity and price of the products added to the cart.
-function CartItem({ item: { imageUrl, price, name, quantity } }) {
+const CartItem: FC<{ item: ShopItem }> = ({ item }) => {
+  const { imageUrl, price, name, quantity } = item;
+
   return (
     <div className="cart-item">
       <img src={imageUrl} alt="item" />
@@ -14,6 +17,6 @@ function CartItem({ item: { imageUrl, price, name, quantity } }) {
       </div>
     </div>
   );
-}
+};
 
 export default CartItem;

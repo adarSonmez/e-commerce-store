@@ -1,11 +1,10 @@
-import { useSelector } from 'react-redux';
-
 import CollectionSlider from '../collection-slider/CollectionSlider';
 import { selectCollectionsAsArray } from '../../store/features/shop/shop.selectors';
+import { useAppSelector } from '../../store/hooks';
 
 // Container of slider components
-function CollectionOverview() {
-  const collections = useSelector(selectCollectionsAsArray);
+const CollectionOverview = () => {
+  const collections = useAppSelector(selectCollectionsAsArray);
 
   return (
     <div className="collection-overview">
@@ -14,6 +13,6 @@ function CollectionOverview() {
       ))}
     </div>
   );
-}
+};
 
 export default CollectionOverview;

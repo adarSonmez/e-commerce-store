@@ -1,21 +1,19 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-
 import MenuItem from '../menu-item/MenuItem';
 import { selectDirectorySections } from '../../store/features/directory/directory.selectors';
 import './Directory.scss';
+import { useAppSelector } from '../../store/hooks';
 
 // Display each menu item (Iterate through sections).
-function Directory() {
-  const sections = useSelector(selectDirectorySections);
+const Directory = () => {
+  const sections = useAppSelector(selectDirectorySections);
 
   return (
     <div className="directory-menu">
-      {sections.map(({ id, ...otherProps }) => (
-        <MenuItem key={id} {...otherProps} />
+      {sections.map((section) => (
+        <MenuItem key={section.id} {...section} />
       ))}
     </div>
   );
-}
+};
 
 export default Directory;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { signUp, signInWithGoogle } from '../../utils/firebase/userAuth';
@@ -6,14 +6,15 @@ import { createUserProfileDocument } from '../../utils/firebase/controller';
 import FormInput from '../../components/form-input/FormInput';
 import CustomButton from '../../components/custom-button/CustomButton';
 import './SignUp.scss';
+import { UserCredential } from 'firebase/auth';
 
-function SignUp() {
+const SignUp = () => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -22,7 +23,7 @@ function SignUp() {
     }
 
     try {
-      const { user } = await signUp(email, password);
+      const { user } = (await signUp(email, password)) as UserCredential;
 
       createUserProfileDocument(user, {
         name: displayName,
@@ -39,8 +40,8 @@ function SignUp() {
   };
 
   // Update state on typing
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = (event: ChangeEvent) => {
+    const { name, value } = event.target as HTMLInputElement;
 
     switch (name) {
       case 'email':
@@ -75,7 +76,7 @@ function SignUp() {
           type="text"
           name="display-name"
           value={displayName}
-          onChange={handleChange}
+          handleChange={handleChange}
           label="Display Name"
           required
         />
@@ -83,7 +84,7 @@ function SignUp() {
           type="email"
           name="email"
           value={email}
-          onChange={handleChange}
+          handleChange={handleChange}
           label="Email"
           required
         />
@@ -91,7 +92,7 @@ function SignUp() {
           type="password"
           name="password"
           value={password}
-          onChange={handleChange}
+          handleChange={handleChange}
           label="Password"
           required
         />
@@ -99,13 +100,13 @@ function SignUp() {
           type="password"
           name="confirm-password"
           value={confirmPassword}
-          onChange={handleChange}
+          handleChange={handleChange}
           label="Confirm Password"
           required
         />
         <div className="buttons">
-          <CustomButton type="submit">SIGN UP</CustomButton>
-          <CustomButton type="button" onClick={signInWithGoogle} google="true">
+          <CustomButton>SIGN UP</CustomButton>
+          <CustomButton onClick={signInWithGoogle} google="true">
             {' '}
             sign In With Google{' '}
           </CustomButton>
@@ -113,6 +114,6 @@ function SignUp() {
       </form>
     </div>
   );
-}
+};
 
 export default SignUp;

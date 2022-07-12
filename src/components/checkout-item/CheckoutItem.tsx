@@ -1,17 +1,18 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import { FC } from 'react';
 
 import {
   clearItem,
   addItem,
   reduceItem,
 } from '../../store/features/cart/cart.slice';
+import { ShopItem } from '../../store/features/shop/shop.slice';
+import { useAppDispatch } from '../../store/hooks';
 import './CheckoutItem.scss';
 
 // Change quantity of each item  (add, remove, clear)
-function CheckoutItem({ cartItem }) {
+const CheckoutItem: FC<{ cartItem: ShopItem }> = ({ cartItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const clearItemFromCart = () => dispatch(clearItem(cartItem));
   const increaseItem = () => dispatch(addItem(cartItem));
@@ -40,6 +41,6 @@ function CheckoutItem({ cartItem }) {
       </div>
     </div>
   );
-}
+};
 
 export default CheckoutItem;

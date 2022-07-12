@@ -1,19 +1,18 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-
 import {
-  selectCartItems,
+  selectCartArray,
   selectCartTotal,
 } from '../../store/features/cart/cart.selectors';
 import CheckoutItem from '../../components/checkout-item/CheckoutItem';
 import './CheckoutPage.scss';
 import PaymentForm from '../../components/payment-form/PaymentForm';
+import { ShopItem } from '../../store/features/shop/shop.slice';
+import { useAppSelector } from '../../store/hooks';
 
 /* Since this is a portfolio project, payment cannot be made, 
   but test payment can be made with the card number given by stripe. */
-function CheckoutPage() {
-  const cartItems = Object.values(useSelector(selectCartItems));
-  const total = useSelector(selectCartTotal);
+const CheckoutPage = () => {
+  const cartItems = useAppSelector(selectCartArray);
+  const total = useAppSelector(selectCartTotal);
 
   return (
     <div className="checkout-page page">
@@ -35,7 +34,10 @@ function CheckoutPage() {
         </div>
       </div>
       {cartItems.map((cartItem) => (
-        <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+        <CheckoutItem
+          key={(cartItem as ShopItem).id}
+          cartItem={cartItem as ShopItem}
+        />
       ))}
       <div className="total">TOTAL: ${total}</div>
       <PaymentForm />
@@ -48,6 +50,6 @@ function CheckoutPage() {
       </div>
     </div>
   );
-}
+};
 
 export default CheckoutPage;

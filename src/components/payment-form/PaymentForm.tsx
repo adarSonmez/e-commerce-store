@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { FormEvent, useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { selectCartTotal } from '../../store/features/cart/cart.selectors';
 import { selectUserInfo } from '../../store/features/auth/auth.selectors';
 
 import CustomButton from '../custom-button/CustomButton';
 import './PaymentForm.scss';
+import { CreatePaymentMethodCardData } from '@stripe/stripe-js';
+import { useAppSelector } from '../../store/hooks';
 
-function PaymentForm() {
+const PaymentForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const amount = useSelector(selectCartTotal);
-  const currentUser = useSelector(selectUserInfo);
+  const amount = useAppSelector(selectCartTotal);
+  const currentUser = useAppSelector(selectUserInfo);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
-  const paymentHandler = async (e) => {
+  const paymentHandler = async (e: FormEvent) => {
     e.preventDefault();
     if (!stripe || !elements) {
       return;
@@ -36,9 +37,9 @@ function PaymentForm() {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
-          name: currentUser ? currentUser.displayName : 'Yihua Zhang',
+          name: currentUser ? currentUser.name : 'Yihua Zhang',
         },
-      },
+      } as CreatePaymentMethodCardData,
     });
 
     setIsProcessingPayment(false);
@@ -66,6 +67,6 @@ function PaymentForm() {
       </form>
     </div>
   );
-}
+};
 
 export default PaymentForm;

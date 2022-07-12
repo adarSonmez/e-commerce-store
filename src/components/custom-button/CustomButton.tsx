@@ -1,8 +1,17 @@
-import React from 'react';
+import { FC, MouseEventHandler } from 'react';
 import './CustomButton.scss';
 
+type CustomButtonProps = {
+  google?: string;
+  inverted?: string;
+  disabled?: boolean;
+  onClick?: MouseEventHandler;
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+};
+
 // Modifies buttons based on class names
-function CustomButton({ children, ...otherProps }) {
+const CustomButton: FC<CustomButtonProps> = ({ children, ...otherProps }) => {
   return (
     <button
       className={`
@@ -14,6 +23,6 @@ function CustomButton({ children, ...otherProps }) {
       {children}
     </button>
   );
-}
+};
 
 export default CustomButton;
