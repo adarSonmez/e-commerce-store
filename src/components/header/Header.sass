@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap')
+
+.header
+  padding-top: 16px
+  position: sticky
+  top: 0
+  height: auto
+  width: 100%
+  display: flex
+  justify-content: space-between
+  margin-bottom: 25px
+  color: rgb(59, 59, 59)
+  z-index: 100
+  background: #fff
+  margin-bottom: 30px
+  border-bottom: 1px solid rgb(204, 198, 206)
+
+  .user-name
+    width: 100px
+    position: absolute
+    user-select: none
+    text-align: center
+    margin: auto
+    top: 30px
+    top: 50% // position the top edge of the element at the middle of the parent 
+    left: 50% // position the left edge of the element at the middle of the parent
+    transform: translate(-50%, -50%)
+    z-index: 101
+    color: rgb(0, 0, 0)
+
+  .logo-container
+    margin-top: -10px
+    margin-bottom: 7px
+    display: flex
+    align-items: center
+    justify-content: center
+
+    img
+      width: 80px
+
+    span
+      margin: 1px 0 0 -9px
+      color: #890091
+      font-size: 22px
+      font-family: Parisienne
+
+  .options
+    width: 50%
+    height: 100%
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    margin-top: 2px
+
+    .option
+      padding: 7px 0px 10px
+      width: 80px
+      text-align: center
+      position: relative
+      cursor: pointer
+
+@media only screen and (max-width: 800px)
+  .header
+    display: flex
+    flex-direction: column
+
+    .logo-container
+      margin-top: -7px
+      width: 100%
+
+    .options
+      margin: -10px 0 10px 0
+      width: 100%
+      display: flex
+      justify-content: space-between
+      padding: 0 6vw
+
+    .cart-dropdown
+      top: 116px
+      right: -10px
+
+    .user-name
+      left: 10px
+      top: 15px

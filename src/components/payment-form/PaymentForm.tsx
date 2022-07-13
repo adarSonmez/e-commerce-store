@@ -1,26 +1,25 @@
-import { FormEvent, useState } from 'react';
-import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-import { selectCartTotal } from '../../store/features/cart/cart.selectors';
-import { selectUserInfo } from '../../store/features/auth/auth.selectors';
+import { FormEvent, useState } from 'react'
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
+import { selectCartTotal } from '../../store/features/cart/cart.selectors'
+import { selectUserInfo } from '../../store/features/auth/auth.selectors'
 
-import CustomButton from '../custom-button/CustomButton';
-import './PaymentForm.scss';
-import { CreatePaymentMethodCardData } from '@stripe/stripe-js';
-import { useAppSelector } from '../../store/hooks';
+import CustomButton from '../custom-button/CustomButton'
+import './PaymentForm.sass'
+import { CreatePaymentMethodCardData } from '@stripe/stripe-js'
+import { useAppSelector } from '../../store/hooks'
 
-const PaymentForm = () => {
-  const stripe = useStripe();
-  const elements = useElements();
-  const amount = useAppSelector(selectCartTotal);
-  const currentUser = useAppSelector(selectUserInfo);
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+function PaymentForm() {
+  const stripe = useStripe()
+  const elements = useElements()
+  const amount = useAppSelector(selectCartTotal)
+  const currentUser = useAppSelector(selectUserInfo)
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false)
 
   const paymentHandler = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!stripe || !elements) {
-      return;
-    }
-    setIsProcessingPayment(true);
+    e.preventDefault()
+    if (!stripe || !elements) return
+
+    setIsProcessingPayment(true)
     const response = await fetch('/.netlify/functions/createPaymentIntent', {
       method: 'post',
       headers: {
@@ -28,10 +27,10 @@ const PaymentForm = () => {
       },
       body: JSON.stringify({ amount: amount * 100 }),
     }).then((res) => {
-      return res.json();
-    });
+      return res.json()
+    })
 
-    const clientSecret = response.paymentIntent.client_secret;
+    const clientSecret = response.paymentIntent.client_secret
 
     const paymentResult = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
@@ -40,18 +39,18 @@ const PaymentForm = () => {
           name: currentUser ? currentUser.name : 'Yihua Zhang',
         },
       } as CreatePaymentMethodCardData,
-    });
+    })
 
-    setIsProcessingPayment(false);
+    setIsProcessingPayment(false)
 
     if (paymentResult.error) {
-      alert(paymentResult.error.message);
+      alert(paymentResult.error.message)
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
-        alert('Payment Successful!');
+        alert('Payment Successful!')
       }
     }
-  };
+  }
 
   return (
     <div className="payment-form-container">
@@ -66,7 +65,7 @@ const PaymentForm = () => {
         </CustomButton>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default PaymentForm;
+export default PaymentForm

@@ -1,12 +1,12 @@
-import Directory from '../../components/directory/Directory';
-import './Homepage.scss';
+import Directory from '../../components/directory/Directory'
+import './Homepage.sass'
 
-const Homepage = () => {
+function Homepage() {
   return (
     <div className="homepage page">
       <Directory />
     </div>
-  );
-};
+  )
+}
 
-export default Homepage;
+export default Homepage

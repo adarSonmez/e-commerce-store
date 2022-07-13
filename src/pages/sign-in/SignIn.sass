@@ -1,0 +1,34 @@
+.sign-in
+  margin: auto
+  width: 100%
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+
+  span
+    font-size: 18px
+    margin-top: 8px
+
+    .orange-link
+      color: rgb(255, 20, 20)
+      font-weight: 700
+      font-size: 17px
+
+  & form
+    max-width: 500px
+    width: 100%
+
+    .buttons
+      display: flex
+      align-items: center
+      justify-content: space-between
+
+    @media screen and (max-width: 510px)
+      .buttons
+        flex-direction: column
+
+
+  & > button
+    width: 100%
+    margin-bottom: 7px

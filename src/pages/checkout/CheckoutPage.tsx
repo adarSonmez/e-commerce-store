@@ -1,18 +1,18 @@
 import {
   selectCartArray,
   selectCartTotal,
-} from '../../store/features/cart/cart.selectors';
-import CheckoutItem from '../../components/checkout-item/CheckoutItem';
-import './CheckoutPage.scss';
-import PaymentForm from '../../components/payment-form/PaymentForm';
-import { ShopItem } from '../../store/features/shop/shop.slice';
-import { useAppSelector } from '../../store/hooks';
+} from '../../store/features/cart/cart.selectors'
+import CheckoutItem from '../../components/checkout-item/CheckoutItem'
+import './CheckoutPage.sass'
+import PaymentForm from '../../components/payment-form/PaymentForm'
+import { ShopItem } from '../../store/features/shop/shop.slice'
+import { useAppSelector } from '../../store/hooks'
 
 /* Since this is a portfolio project, payment cannot be made, 
   but test payment can be made with the card number given by stripe. */
-const CheckoutPage = () => {
-  const cartItems = useAppSelector(selectCartArray);
-  const total = useAppSelector(selectCartTotal);
+function CheckoutPage() {
+  const cartItems = useAppSelector(selectCartArray)
+  const total = useAppSelector(selectCartTotal)
 
   return (
     <div className="checkout-page page">
@@ -49,7 +49,7 @@ const CheckoutPage = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CheckoutPage;
+export default CheckoutPage

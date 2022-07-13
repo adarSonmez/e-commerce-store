@@ -1,10 +1,10 @@
-import CollectionSlider from '../collection-slider/CollectionSlider';
-import { selectCollectionsAsArray } from '../../store/features/shop/shop.selectors';
-import { useAppSelector } from '../../store/hooks';
+import CollectionSlider from '../collection-slider/CollectionSlider'
+import { selectCollectionsAsArray } from '../../store/features/shop/shop.selectors'
+import { useAppSelector } from '../../store/hooks'
 
 // Container of slider components
-const CollectionOverview = () => {
-  const collections = useAppSelector(selectCollectionsAsArray);
+function CollectionOverview() {
+  const collections = useAppSelector(selectCollectionsAsArray)
 
   return (
     <div className="collection-overview">
@@ -12,7 +12,7 @@ const CollectionOverview = () => {
         <CollectionSlider key={id} {...otherProps} />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default CollectionOverview;
+export default CollectionOverview

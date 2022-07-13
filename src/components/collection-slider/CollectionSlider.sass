@@ -1,0 +1,49 @@
+.slider-container
+  align-items: center
+  height: 450px
+  justify-content: center
+  overflow-x: hidden
+  width: 100%
+
+  .title
+    font-size: 25px
+    text-align: center
+    margin-bottom: 20px
+    cursor: pointer
+
+  .slider
+    height: var(--slide-size)
+    margin: 0 auto
+    position: relative
+    width: var(--slide-size)
+
+    &-wrapper
+      display: flex
+      margin: 0 calc(var(--slide-margin) * -1)
+      position: absolute
+      transition: transform var(--base-duration) cubic-bezier(0.25, 1, 0.35, 1)
+
+    @media screen and (max-width: 600px)
+      .slider-wrapper
+        margin-left: calc((581px - 100vw) / 10)
+
+    @media screen and (max-width: 500px)
+      .slider-wrapper
+        margin-left: calc((581px - 100vw) / 4)
+
+      .slide
+        margin: 0 6px
+
+    @media screen and (max-width: 400px)
+      .slider-wrapper
+        margin-left: calc((581px - 100vw) / 6)
+
+      .slide
+        margin: 0 6px
+
+    @media screen and (max-width: 300px)
+      .slider-wrapper
+        margin-left: calc((581px - 100vw) / 12)
+
+      .slide
+        margin: 0 5px

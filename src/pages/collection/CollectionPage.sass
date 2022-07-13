@@ -1,0 +1,43 @@
+.collection-page
+  display: flex
+  flex-direction: column
+  padding: 0 2px
+
+  .title
+    font-size: 25px
+    margin: 0px auto 30px
+
+  .items
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr
+    grid-gap: 10px
+
+  @media only screen and (max-width: 1000px)
+    .items
+      display: grid
+      grid-template-columns: 1fr 1fr 1fr
+      grid-gap: 10px
+
+  @media only screen and (max-width: 750px)
+    .items
+      display: grid
+      grid-template-columns: 1fr 1fr
+      grid-gap: 10px
+
+  @media only screen and (max-width: 400px)
+    .items
+      display: grid
+      grid-template-columns: 1fr
+      grid-gap: 10px
+
+.loading
+  text-align: center
+  width: 100%
+  color: rgb(94, 0, 94)
+  height: 60vh
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  font-size: 18px
+  user-select: none

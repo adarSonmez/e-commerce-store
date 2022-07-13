@@ -1,22 +1,20 @@
-import { FC } from 'react';
-
 import {
   clearItem,
   addItem,
   reduceItem,
-} from '../../store/features/cart/cart.slice';
-import { ShopItem } from '../../store/features/shop/shop.slice';
-import { useAppDispatch } from '../../store/hooks';
-import './CheckoutItem.scss';
+} from '../../store/features/cart/cart.slice'
+import { ShopItem } from '../../store/features/shop/shop.slice'
+import { useAppDispatch } from '../../store/hooks'
+import './CheckoutItem.sass'
 
 // Change quantity of each item  (add, remove, clear)
-const CheckoutItem: FC<{ cartItem: ShopItem }> = ({ cartItem }) => {
-  const { name, imageUrl, price, quantity } = cartItem;
-  const dispatch = useAppDispatch();
+function CheckoutItem({ cartItem }: { cartItem: ShopItem }) {
+  const { name, imageUrl, price, quantity } = cartItem
+  const dispatch = useAppDispatch()
 
-  const clearItemFromCart = () => dispatch(clearItem(cartItem));
-  const increaseItem = () => dispatch(addItem(cartItem));
-  const decreaseItem = () => dispatch(reduceItem(cartItem));
+  const clearItemFromCart = () => dispatch(clearItem(cartItem))
+  const increaseItem = () => dispatch(addItem(cartItem))
+  const decreaseItem = () => dispatch(reduceItem(cartItem))
 
   return (
     <div className="checkout-item">
@@ -40,7 +38,7 @@ const CheckoutItem: FC<{ cartItem: ShopItem }> = ({ cartItem }) => {
         &#10005;
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CheckoutItem;
+export default CheckoutItem

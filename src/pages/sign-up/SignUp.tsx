@@ -1,65 +1,65 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { Link } from 'react-router-dom'
 
-import { signUp, signInWithGoogle } from '../../utils/firebase/userAuth';
-import { createUserProfileDocument } from '../../utils/firebase/controller';
-import FormInput from '../../components/form-input/FormInput';
-import CustomButton from '../../components/custom-button/CustomButton';
-import './SignUp.scss';
-import { UserCredential } from 'firebase/auth';
+import { signUp, signInWithGoogle } from '../../utils/firebase/userAuth'
+import { createUserProfileDocument } from '../../utils/firebase/controller'
+import FormInput from '../../components/form-input/FormInput'
+import CustomButton from '../../components/custom-button/CustomButton'
+import './SignUp.sass'
+import { UserCredential } from 'firebase/auth'
 
-const SignUp = () => {
-  const [displayName, setDisplayName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+function SignUp() {
+  const [displayName, setDisplayName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (password !== confirmPassword) {
-      alert("Passwords don't match!");
-      return;
+      alert("Passwords don't match!")
+      return
     }
 
     try {
-      const { user } = (await signUp(email, password)) as UserCredential;
+      const { user } = (await signUp(email, password)) as UserCredential
 
       createUserProfileDocument(user, {
         name: displayName,
-      });
+      })
 
       // Clear fields after submission
-      setDisplayName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
+      setDisplayName('')
+      setEmail('')
+      setPassword('')
+      setConfirmPassword('')
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-  };
+  }
 
   // Update state on typing
   const handleChange = (event: ChangeEvent) => {
-    const { name, value } = event.target as HTMLInputElement;
+    const { name, value } = event.target as HTMLInputElement
 
     switch (name) {
       case 'email':
-        setEmail(value);
-        break;
+        setEmail(value)
+        break
       case 'display-name':
-        setDisplayName(value);
-        break;
+        setDisplayName(value)
+        break
       case 'password':
-        setPassword(value);
-        break;
+        setPassword(value)
+        break
       case 'confirm-password':
-        setConfirmPassword(value);
-        break;
+        setConfirmPassword(value)
+        break
       default:
-        break;
+        break
     }
-  };
+  }
 
   return (
     <div className="sign-up page">
@@ -113,7 +113,7 @@ const SignUp = () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

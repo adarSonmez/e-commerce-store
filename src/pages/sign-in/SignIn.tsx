@@ -1,31 +1,31 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { Link } from 'react-router-dom'
 
-import { signIn, signInWithGoogle } from '../../utils/firebase/userAuth';
-import FormInput from '../../components/form-input/FormInput';
-import CustomButton from '../../components/custom-button/CustomButton';
-import './SignIn.scss';
+import { signIn, signInWithGoogle } from '../../utils/firebase/userAuth'
+import FormInput from '../../components/form-input/FormInput'
+import CustomButton from '../../components/custom-button/CustomButton'
+import './SignIn.sass'
 
-const SignIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function SignIn() {
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
   // Clear fields after submission
   const signInWithEmail = async (event: FormEvent) => {
-    event.preventDefault();
-    await signIn(email, password);
+    event.preventDefault()
+    await signIn(email, password)
 
-    setEmail('');
-    setPassword('');
-  };
+    setEmail('')
+    setPassword('')
+  }
 
   // Update state on typing
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = event.target;
+    const { value, name } = event.target
 
-    if (name === 'email') setEmail(value);
-    else if (name === 'password') setPassword(value);
-  };
+    if (name === 'email') setEmail(value)
+    else if (name === 'password') setPassword(value)
+  }
 
   return (
     <div className="sign-in page">
@@ -62,7 +62,7 @@ const SignIn = () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn

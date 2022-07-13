@@ -1,19 +1,19 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
 
 import {
   selectCollection,
   selectShopRequestStatus,
-} from '../../store/features/shop/shop.selectors';
-import CollectionItem from '../../components/collection-item/CollectionItem';
+} from '../../store/features/shop/shop.selectors'
+import CollectionItem from '../../components/collection-item/CollectionItem'
 
-import './CollectionPage.scss';
-import { useAppSelector } from '../../store/hooks';
+import './CollectionPage.sass'
+import { useAppSelector } from '../../store/hooks'
 
-const CollectionPage = () => {
-  const { collectionId } = useParams();
-  const shopRequestStatus = useAppSelector(selectShopRequestStatus);
+function CollectionPage() {
+  const { collectionId } = useParams<string>()
+  const shopRequestStatus = useAppSelector(selectShopRequestStatus)
 
-  const collection = useAppSelector(selectCollection(collectionId!))!;
+  const collection = useAppSelector(selectCollection(collectionId!))!
 
   return shopRequestStatus === 'loading' ? (
     <div className="loading">Loading...</div>
@@ -26,7 +26,7 @@ const CollectionPage = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CollectionPage;
+export default CollectionPage

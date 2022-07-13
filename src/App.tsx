@@ -1,29 +1,29 @@
-import { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { setCurrentUser } from './store/features/auth/auth.slice';
+import { useEffect } from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { setCurrentUser } from './store/features/auth/auth.slice'
 
-import { auth } from './utils/firebase/userAuth';
-import { selectUserInfo } from './store/features/auth/auth.selectors';
+import { auth } from './utils/firebase/userAuth'
+import { selectUserInfo } from './store/features/auth/auth.selectors'
 
-import Homepage from './pages/homepage/Homepage';
-import ShopPage from './pages/shop/ShopPage';
-import CheckoutPage from './pages/checkout/CheckoutPage';
-import SignIn from './pages/sign-in/SignIn';
-import SignUp from './pages/sign-up/SignUp';
-import Header from './components/header/Header';
-import { onAuthStateChanged } from 'firebase/auth';
-import { useAppDispatch, useAppSelector } from './store/hooks';
+import Homepage from './pages/homepage/Homepage'
+import ShopPage from './pages/shop/ShopPage'
+import CheckoutPage from './pages/checkout/CheckoutPage'
+import SignIn from './pages/sign-in/SignIn'
+import SignUp from './pages/sign-up/SignUp'
+import Header from './components/header/Header'
+import { onAuthStateChanged } from 'firebase/auth'
+import { useAppDispatch, useAppSelector } from './store/hooks'
 
 function App() {
-  const userInfo = useAppSelector(selectUserInfo);
-  // or useAppSelector(state => state.auth.userInfo);
-  const dispatch = useAppDispatch();
+  const userInfo = useAppSelector(selectUserInfo)
+  // or useAppSelector(state => state.auth.userInfo)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      dispatch(setCurrentUser(user));
-    });
-  }, [dispatch]);
+      dispatch(setCurrentUser(user))
+    })
+  }, [dispatch])
 
   return (
     <>
@@ -49,7 +49,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

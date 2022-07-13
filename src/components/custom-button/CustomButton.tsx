@@ -1,17 +1,17 @@
-import { FC, MouseEventHandler } from 'react';
-import './CustomButton.scss';
+import { MouseEventHandler } from 'react'
+import './CustomButton.sass'
 
 type CustomButtonProps = {
-  google?: string;
-  inverted?: string;
-  disabled?: boolean;
-  onClick?: MouseEventHandler;
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-};
+  google?: string
+  inverted?: string
+  disabled?: boolean
+  onClick?: MouseEventHandler
+  children: React.ReactNode
+  style?: React.CSSProperties
+}
 
 // Modifies buttons based on class names
-const CustomButton: FC<CustomButtonProps> = ({ children, ...otherProps }) => {
+function CustomButton({ children, ...otherProps }: CustomButtonProps) {
   return (
     <button
       className={`
@@ -22,7 +22,7 @@ const CustomButton: FC<CustomButtonProps> = ({ children, ...otherProps }) => {
     >
       {children}
     </button>
-  );
-};
+  )
+}
 
-export default CustomButton;
+export default CustomButton

@@ -33,6 +33,6 @@ const DIRECTORY_DATA = [
     id: 5,
     linkUrl: 'shop/men',
   },
-];
+]
 
-export default DIRECTORY_DATA;
+export default DIRECTORY_DATA
