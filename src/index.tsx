@@ -23,15 +23,15 @@ const root = createRoot(container)
 
 root.render(
   <React.StrictMode>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
-            <Elements stripe={stripePromise}>
-              <App />
-            </Elements>
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Elements stripe={stripePromise}>
+            <App />
+          </Elements>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 )
 

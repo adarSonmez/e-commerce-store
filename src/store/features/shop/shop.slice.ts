@@ -20,6 +20,7 @@ export interface Collection {
 export interface Collections {
   [key: string]: Collection
 }
+
 export interface ShopState {
   collections: Collections | null
   status: 'loading' | 'idle' | 'failed'
