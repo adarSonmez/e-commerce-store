@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect'
+import { createSelector } from '@reduxjs/toolkit'
 import { RootState } from '../..'
 import { ShopItem } from '../shop/shop.slice'
 
