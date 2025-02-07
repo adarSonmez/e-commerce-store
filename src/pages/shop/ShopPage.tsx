@@ -2,25 +2,28 @@ import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { loadCollections } from '../../store/features/shop/shop.slice'
+import { selectCollectionsAsArray } from '../../store/features/shop/shop.selectors'
 import CollectionOverview from '../../components/collection-overview/CollectionOverview'
 import CollectionPage from '../collection/CollectionPage'
-import { useAppDispatch } from '../../store/hooks'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 
-// Get updated categories on every render
 function ShopPage() {
   const dispatch = useAppDispatch()
+  const collections = useAppSelector(selectCollectionsAsArray)
 
   useEffect(() => {
-    dispatch(loadCollections())
-  }, [dispatch])
+    if (collections.length === 0) {
+      dispatch(loadCollections())
+    }
+  }, [dispatch, collections.length])
 
   return (
-    <div className="shop-page page">
+    <main className="shop-page page">
       <Routes>
         <Route path="" element={<CollectionOverview />} />
         <Route path=":collectionId" element={<CollectionPage />} />
       </Routes>
-    </div>
+    </main>
   )
 }
 

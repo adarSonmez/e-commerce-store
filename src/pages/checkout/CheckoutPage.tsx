@@ -15,7 +15,9 @@ function CheckoutPage() {
   const total = useAppSelector(selectCartTotal)
 
   return (
-    <div className="checkout-page page">
+    <section className="checkout-page page">
+      <h2 className="checkout-title">Checkout</h2>
+
       <div className="checkout-header">
         <div className="header-block">
           <span>Product</span>
@@ -33,22 +35,33 @@ function CheckoutPage() {
           <span>Remove</span>
         </div>
       </div>
-      {cartItems.map((cartItem) => (
-        <CheckoutItem
-          key={(cartItem as ShopItem).id}
-          cartItem={cartItem as ShopItem}
-        />
-      ))}
-      <div className="total">TOTAL: ${total}</div>
+
+      {cartItems.length === 0 ? (
+        <p role="alert" className="empty-cart-message">
+          Your cart is empty
+        </p>
+      ) : (
+        cartItems.map((cartItem) => (
+          <CheckoutItem
+            key={(cartItem as ShopItem).id}
+            cartItem={cartItem as ShopItem}
+          />
+        ))
+      )}
+
+      <div className="total" aria-live="polite">
+        TOTAL: ${total}
+      </div>
+
       <PaymentForm />
 
-      <div className="test-warning">
-        Please use the following test credit card for payments!
+      <div className="test-warning" role="alert">
+        <p>Please use the following test credit card for payments:</p>
         <p className="test-cart-info">
           4242 4242 4242 4242 - Exp: 01/30 - CVC: 123
         </p>
       </div>
-    </div>
+    </section>
   )
 }
 

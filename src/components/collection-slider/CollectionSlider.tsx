@@ -20,7 +20,6 @@ function CollectionSlider({ title, items, routeName }: CollectionSliderProps) {
 
   const onNavigateHandler = () => navigate(routeName)
 
-  // Change current slide when user clicks right or left of the slider
   const setCurrentOnClick = (index: number) => {
     let turn = index - items[0].id
 
@@ -29,21 +28,24 @@ function CollectionSlider({ title, items, routeName }: CollectionSliderProps) {
     }
   }
 
-  // Move slides based on (rerendered) current slide
   const moveSlide = () => {
-    const wrapperTransform = {
+    return {
       transform: `translateX(-${current * (100 / items.length)}%)`,
     }
-    return wrapperTransform
   }
 
   if (shopRequestStatus === 'loading')
-    return <div className="loading">Loading...</div>
+    return (
+      <div role="status" className="loading">
+        Loading...
+      </div>
+    )
+
   return (
-    <div className="slider-container">
-      <h1 className="title" onClick={onNavigateHandler}>
+    <section className="slider-container">
+      <button className="title-button" onClick={onNavigateHandler} type="button">
         {title.toUpperCase()}
-      </h1>
+      </button>
       <div className="slider">
         <ul className="slider-wrapper" style={moveSlide()}>
           {items.map((slide) => (
@@ -56,7 +58,7 @@ function CollectionSlider({ title, items, routeName }: CollectionSliderProps) {
           ))}
         </ul>
       </div>
-    </div>
+    </section>
   )
 }
 

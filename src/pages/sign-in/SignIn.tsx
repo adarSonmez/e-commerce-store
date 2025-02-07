@@ -10,19 +10,15 @@ function SignIn() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  // Clear fields after submission
   const signInWithEmail = async (event: FormEvent) => {
     event.preventDefault()
     await signIn(email, password)
-
     setEmail('')
     setPassword('')
   }
 
-  // Update state on typing
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
-
     if (name === 'email') setEmail(value)
     else if (name === 'password') setPassword(value)
   }
@@ -31,18 +27,18 @@ function SignIn() {
     <div className="sign-in page">
       <h2>Sign in with your email and password</h2>
       <span>
-        Dont't have an account?{' '}
+        Don't have an account?{' '}
         <Link to="/signup" className="orange-link">
           Sign Up!
         </Link>
       </span>
-      <form method="POST">
+      <form method="POST" onSubmit={signInWithEmail}>
         <FormInput
           name="email"
           type="email"
           handleChange={handleChange}
           value={email}
-          label="email"
+          label="Email"
           required
         />
         <FormInput
@@ -50,14 +46,13 @@ function SignIn() {
           type="password"
           value={password}
           handleChange={handleChange}
-          label="password"
+          label="Password"
           required
         />
         <div className="buttons">
-          <CustomButton onClick={signInWithEmail}> Sign in </CustomButton>
-          <CustomButton onClick={signInWithGoogle} google="true">
-            {' '}
-            sign In With Google{' '}
+          <CustomButton type="submit">Sign in</CustomButton>
+          <CustomButton onClick={signInWithGoogle} google>
+            Sign In With Google
           </CustomButton>
         </div>
       </form>

@@ -2,23 +2,28 @@ import { Section } from '../../store/features/directory/directory.slice'
 import { useNavigate } from 'react-router-dom'
 import './MenuItem.sass'
 
-// Create clickable (navigate to corresponding page) menu item component.
+// Create clickable menu item component.
 function MenuItem({ title, imageUrl, size, linkUrl }: Section) {
   const navigate = useNavigate()
   const onNavigateHandler = () => navigate(linkUrl)
 
   return (
-    <div className={`${size} menu-item`} onClick={onNavigateHandler}>
+    <button
+      className={`${size} menu-item`}
+      onClick={onNavigateHandler}
+      aria-label={`Navigate to ${title}`}
+    >
       <div
         className="background-image"
         style={{
           backgroundImage: `url(${imageUrl})`,
         }}
+        role="presentation"
       />
       <div className="content">
-        <h1 className="title">{title.toUpperCase()}</h1>
+        <h2 className="title">{title.toUpperCase()}</h2>
       </div>
-    </div>
+    </button>
   )
 }
 

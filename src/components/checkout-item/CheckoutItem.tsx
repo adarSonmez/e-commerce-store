@@ -7,7 +7,6 @@ import { ShopItem } from '../../store/features/shop/shop.slice'
 import { useAppDispatch } from '../../store/hooks'
 import './CheckoutItem.sass'
 
-// Change quantity of each item  (add, remove, clear)
 function CheckoutItem({ cartItem }: { cartItem: ShopItem }) {
   const { name, imageUrl, price, quantity } = cartItem
   const dispatch = useAppDispatch()
@@ -19,24 +18,34 @@ function CheckoutItem({ cartItem }: { cartItem: ShopItem }) {
   return (
     <div className="checkout-item">
       <div className="image-container">
-        <img src={imageUrl} alt="item" />
+        <img src={imageUrl} alt={`${name} product`} />
       </div>
       <span className="name">{name}</span>
       <span className="quantity">
-        {' '}
-        <div className="arrow" onClick={decreaseItem}>
-          {/* Remove icon is from UTF-8 Dingbats */}
+        <button
+          className="arrow transparent-button"
+          onClick={decreaseItem}
+          aria-label={`Decrease quantity of ${name}`}
+        >
           &#10094;
-        </div>
+        </button>
         <span className="value">{quantity}</span>
-        <div className="arrow" onClick={increaseItem}>
+        <button
+          className="arrow transparent-button"
+          onClick={increaseItem}
+          aria-label={`Increase quantity of ${name}`}
+        >
           &#10095;
-        </div>
+        </button>
       </span>
-      <span className="price">{price}</span>
-      <div className="remove-button" onClick={clearItemFromCart}>
+      <span className="price">${price}</span>
+      <button
+        className="remove-button transparent-button"
+        onClick={clearItemFromCart}
+        aria-label={`Remove ${name} from cart`}
+      >
         &#10005;
-      </div>
+      </button>
     </div>
   )
 }

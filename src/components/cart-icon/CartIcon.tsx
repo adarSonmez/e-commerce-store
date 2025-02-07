@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks'
 
 import './CartIcon.sass'
 
-// Shows the number of products in the cart.
 function CartIcon() {
   const dispatch = useAppDispatch()
   const itemCount = useAppSelector(selectCartItemsCount)
@@ -13,10 +12,16 @@ function CartIcon() {
   const toggleDropdown = () => dispatch(toggleHidden())
 
   return (
-    <div className="cart-icon" onClick={toggleDropdown}>
+    <button
+      className="cart-icon transparent-button"
+      onClick={toggleDropdown}
+      aria-label="Toggle cart dropdown"
+    >
       <ShoppingIcon className="shopping-icon" />
-      <span className="item-count">{itemCount}</span>
-    </div>
+      <span className="item-count" aria-live="polite">
+        {itemCount}
+      </span>
+    </button>
   )
 }
 

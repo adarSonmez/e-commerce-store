@@ -22,7 +22,7 @@ function CollectionItem({ item }: { item: ShopItem }) {
         <div className="collection-footer">
           <span className="name">{name.toUpperCase()}</span>
         </div>{' '}
-        <CustomButton onClick={addItemToTheCart} inverted="true">
+        <CustomButton onClick={addItemToTheCart} inverted>
           Add to cart {'$' + price}
         </CustomButton>
       </div>

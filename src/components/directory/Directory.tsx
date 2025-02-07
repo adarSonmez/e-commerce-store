@@ -3,16 +3,18 @@ import { selectDirectorySections } from '../../store/features/directory/director
 import './Directory.sass'
 import { useAppSelector } from '../../store/hooks'
 
-// Display each menu item (Iterate through sections).
 function Directory() {
   const sections = useAppSelector(selectDirectorySections)
 
   return (
-    <div className="directory-menu">
-      {sections.map((section) => (
-        <MenuItem key={section.id} {...section} />
-      ))}
-    </div>
+    <nav className="directory-menu" aria-label="Main directory navigation">
+      <h2 className="visually-hidden">Browse Categories</h2>
+      {sections.length === 0 ? (
+        <p role="alert" className="empty-directory">No sections available</p>
+      ) : (
+        sections.map((section) => <MenuItem key={section.id} {...section} />)
+      )}
+    </nav>
   )
 }
 

@@ -12,45 +12,47 @@ import CheckoutPage from './pages/checkout/CheckoutPage'
 import SignIn from './pages/sign-in/SignIn'
 import SignUp from './pages/sign-up/SignUp'
 import Header from './components/header/Header'
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged, User } from 'firebase/auth'
 import { useAppDispatch, useAppSelector } from './store/hooks'
 import OfflinePage from './pages/offline-page/OfflinePage'
 
 function App() {
   const userInfo = useAppSelector(selectUserInfo)
-  // or useAppSelector(state => state.auth.userInfo)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user: User | null) => {
       dispatch(setCurrentUser(user))
     })
+
+    return () => unsubscribe()
   }, [dispatch])
 
   return (
     <>
       <Online>
         <Header userName={userInfo?.name} />
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/shop/*" element={<ShopPage />} />
-          <Route
-            path="/checkout"
-            element={
-              userInfo.id ? <CheckoutPage /> : <Navigate replace to="/signup" />
-            }
-          />
-          <Route
-            path="/signin"
-            element={userInfo.id ? <Navigate replace to="/" /> : <SignIn />}
-          />
-          <Route
-            path="/signup"
-            element={userInfo.id ? <Navigate replace to="/" /> : <SignUp />}
-          />
-          {/** No match route approach */}
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+        <main>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/shop/*" element={<ShopPage />} />
+            <Route
+              path="/checkout"
+              element={
+                userInfo.id ? <CheckoutPage /> : <Navigate replace to="/signup" />
+              }
+            />
+            <Route
+              path="/signin"
+              element={userInfo.id ? <Navigate replace to="/" /> : <SignIn />}
+            />
+            <Route
+              path="/signup"
+              element={userInfo.id ? <Navigate replace to="/" /> : <SignUp />}
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </main>
       </Online>
       <Offline>
         <OfflinePage />

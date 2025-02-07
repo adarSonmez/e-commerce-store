@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-
 import {
   selectCartArray,
   selectCartHidden,
@@ -12,7 +11,6 @@ import './CartDropdown.sass'
 import { ShopItem } from '../../store/features/shop/shop.slice'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 
-// Shows the items added to the cart
 function CartDropdown() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -25,18 +23,22 @@ function CartDropdown() {
   }
 
   return (
-    <div className={`cart-dropdown ${cartHidden ? 'hidden-cart' : ''}`}>
+    <section className={`cart-dropdown ${cartHidden ? 'hidden-cart' : ''}`} aria-live="polite">
       <div className="cart-items">
         {cartItems.length ? (
           cartItems.map((cartItem) => (
             <CartItem key={cartItem.id} item={cartItem} />
           ))
         ) : (
-          <span className="empty-message">Your cart is empty</span>
+          <p role="alert" className="empty-message">
+            Your cart is empty
+          </p>
         )}
       </div>
-      <CustomButton onClick={handleGoToClick}>GO TO CHECKOUT</CustomButton>
-    </div>
+      <CustomButton onClick={handleGoToClick} aria-label="Proceed to checkout">
+        GO TO CHECKOUT
+      </CustomButton>
+    </section>
   )
 }
 

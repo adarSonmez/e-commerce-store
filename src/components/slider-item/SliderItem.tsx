@@ -19,7 +19,6 @@ function SliderItem({ item, currentID, setCurrentOnClick }: SliderItemProps) {
 
   const addItemToTheCart = () => dispatch(addItem(item))
 
-  // Cool effect on mouse move
   const handleMouseMove = (event: MouseEvent) => {
     const el: HTMLElement = slideRef.current!
     const r = el.getBoundingClientRect()
@@ -35,11 +34,10 @@ function SliderItem({ item, currentID, setCurrentOnClick }: SliderItemProps) {
   }
 
   const handleMouseLeave = () => {
-    slideRef.current?.style.setProperty('--x', 0 + '')
-    slideRef.current?.style.setProperty('--y', 0 + '')
+    slideRef.current?.style.setProperty('--x', '0')
+    slideRef.current?.style.setProperty('--y', '0')
   }
 
-  // Get clicked slide
   const handleSlideItemClick = () => {
     setCurrentOnClick(id)
   }
@@ -49,7 +47,6 @@ function SliderItem({ item, currentID, setCurrentOnClick }: SliderItemProps) {
     element.style.opacity = '1'
   }
 
-  // Set class names to slides to focus current one
   const setClassNames = () => {
     let classNames = 'slide'
 
@@ -63,6 +60,8 @@ function SliderItem({ item, currentID, setCurrentOnClick }: SliderItemProps) {
   return (
     <li
       ref={slideRef}
+      role="presentation"
+      tabIndex={0}
       className={setClassNames()}
       onClick={handleSlideItemClick}
       onMouseMove={handleMouseMove}
@@ -74,13 +73,14 @@ function SliderItem({ item, currentID, setCurrentOnClick }: SliderItemProps) {
           alt={name}
           src={imageUrl}
           onLoad={imageLoaded}
+          aria-live="polite"
         />
       </div>
 
       <article className="slide-content">
         <h2 className="slide-headline">{name}</h2>
         <h2 className="price">{'$' + price}</h2>
-        <CustomButton inverted="true" onClick={addItemToTheCart}>
+        <CustomButton inverted onClick={addItemToTheCart} aria-label={`Add ${name} to cart`}>
           ADD TO CART
         </CustomButton>
       </article>

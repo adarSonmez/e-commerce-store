@@ -2,21 +2,22 @@ import { MouseEventHandler } from 'react'
 import './CustomButton.sass'
 
 type CustomButtonProps = {
-  google?: string
-  inverted?: string
+  type?: "button" | "submit" | "reset"
+  google?: boolean
+  inverted?: boolean
   disabled?: boolean
   onClick?: MouseEventHandler
   children: React.ReactNode
   style?: React.CSSProperties
-}
+};
 
-// Modifies buttons based on class names
-function CustomButton({ children, ...otherProps }: CustomButtonProps) {
+function CustomButton({ children, type = "button", ...otherProps }: CustomButtonProps) {
   return (
     <button
+      type={type}
       className={`
         ${otherProps.google ? 'google-btn' : ''} 
-        ${otherProps.inverted ? 'inverted' : ''}
+        ${otherProps.inverted ? 'inverted' : ''} 
         custom-button`}
       {...otherProps}
     >
@@ -24,5 +25,6 @@ function CustomButton({ children, ...otherProps }: CustomButtonProps) {
     </button>
   )
 }
+
 
 export default CustomButton

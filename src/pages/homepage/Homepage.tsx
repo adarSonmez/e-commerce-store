@@ -3,9 +3,10 @@ import './Homepage.sass'
 
 function Homepage() {
   return (
-    <div className="homepage page">
+    <main className="homepage page">
+      <h1 className="visually-hidden">Homepage - Browse Categories</h1>
       <Directory />
-    </div>
+    </main>
   )
 }
 

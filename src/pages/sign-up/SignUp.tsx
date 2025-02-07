@@ -13,47 +13,47 @@ function SignUp() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
     if (password !== confirmPassword) {
-      alert("Passwords don't match!")
+      setError("Passwords don't match!")
       return
     }
+
+    setError('')
 
     try {
       const { user } = (await signUp(email, password)) as UserCredential
 
-      createUserProfileDocument(user, {
-        name: displayName,
-      })
+      createUserProfileDocument(user, { name: displayName })
 
-      // Clear fields after submission
       setDisplayName('')
       setEmail('')
       setPassword('')
       setConfirmPassword('')
     } catch (err) {
       console.error(err)
+      setError('Failed to create account. Please try again.')
     }
   }
 
-  // Update state on typing
-  const handleChange = (event: ChangeEvent) => {
-    const { name, value } = event.target as HTMLInputElement
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
 
     switch (name) {
       case 'email':
         setEmail(value)
         break
-      case 'display-name':
+      case 'displayName':
         setDisplayName(value)
         break
       case 'password':
         setPassword(value)
         break
-      case 'confirm-password':
+      case 'confirmPassword':
         setConfirmPassword(value)
         break
       default:
@@ -71,10 +71,12 @@ function SignUp() {
         </Link>
       </span>
 
+      {error && <p role="alert" className="error-message">{error}</p>}
+
       <form className="sign-up-form" onSubmit={handleSubmit} method="POST">
         <FormInput
           type="text"
-          name="display-name"
+          name="displayName"
           value={displayName}
           handleChange={handleChange}
           label="Display Name"
@@ -98,17 +100,16 @@ function SignUp() {
         />
         <FormInput
           type="password"
-          name="confirm-password"
+          name="confirmPassword"
           value={confirmPassword}
           handleChange={handleChange}
           label="Confirm Password"
           required
         />
         <div className="buttons">
-          <CustomButton>SIGN UP</CustomButton>
-          <CustomButton onClick={signInWithGoogle} google="true">
-            {' '}
-            sign In With Google{' '}
+          <CustomButton type="submit">SIGN UP</CustomButton>
+          <CustomButton onClick={signInWithGoogle} google>
+            Sign In With Google
           </CustomButton>
         </div>
       </form>

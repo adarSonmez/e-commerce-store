@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom'
-
 import {
   selectCollection,
   selectShopRequestStatus,
@@ -10,22 +9,36 @@ import './CollectionPage.sass'
 import { useAppSelector } from '../../store/hooks'
 
 function CollectionPage() {
-  const { collectionId } = useParams<string>()
+  const { collectionId } = useParams<{ collectionId: string }>()
   const shopRequestStatus = useAppSelector(selectShopRequestStatus)
 
-  const collection = useAppSelector(selectCollection(collectionId!))!
+  const collection = useAppSelector(selectCollection(collectionId!))
 
-  return shopRequestStatus === 'loading' ? (
-    <div className="loading">Loading...</div>
-  ) : (
-    <div className="collection-page page">
+  if (shopRequestStatus === 'loading') {
+    return (
+      <div role="status" className="loading">
+        Loading...
+      </div>
+    )
+  }
+
+  if (!collection) {
+    return (
+      <div role="alert" className="error-message">
+        Collection not found
+      </div>
+    )
+  }
+
+  return (
+    <section className="collection-page page">
       <h2 className="title">{collection.title.toUpperCase()}</h2>
       <div className="items">
         {collection.items.map((item) => (
           <CollectionItem key={item.id} item={item} />
         ))}
       </div>
-    </div>
+    </section>
   )
 }
 

@@ -13,12 +13,11 @@ function Header({ userName }: { userName: string | null }) {
   const { pathname } = useLocation()
   const user = useAppSelector(selectUserInfo)
 
-  // Create header with navigation links and logo.
   return (
-    <div className="header">
-      <div className="user-name">{userName}</div>
-      <NavLink className="logo-container" to="/">
-        <img src={LOGO_URL} alt="My Boutique Logo" />
+    <nav className="header" role="navigation" aria-label="Main navigation">
+      <p className="user-name" aria-label="Logged in as">{userName}</p>
+      <NavLink className="logo-container" to="/" aria-label="Go to homepage">
+        <img src={LOGO_URL} alt="My Boutique Logo - Navigate to Home" />
         <span>My Boutique</span>
       </NavLink>
       <div className="options">
@@ -27,40 +26,31 @@ function Header({ userName }: { userName: string | null }) {
         </NavLink>
         <a
           className="option"
-          href="http://www.adarsonmez.software/"
+          href="https://www.linkedin.com/in/adar-sonmez/"
           target="_blank"
           rel="noreferrer"
+          aria-label="Contact (opens in a new tab)"
         >
           CONTACT
         </a>
 
-        {/** Toggling sign in and sign up buttons */}
-        {(() => {
-          if (user.id) {
-            return (
-              <div className="option" onClick={logout}>
-                SIGN OUT
-              </div>
-            )
-          } else {
-            if (pathname === '/signup')
-              return (
-                <NavLink className="option" to="/signin">
-                  SIGN IN
-                </NavLink>
-              )
-            else
-              return (
-                <NavLink className="option" to="/signup">
-                  SIGN UP
-                </NavLink>
-              )
-          }
-        })()}
+        {user.id ? (
+          <button className="option transparent" onClick={logout}>
+            SIGN OUT
+          </button>
+        ) : pathname === '/signup' ? (
+          <NavLink className="option" to="/signin">
+            SIGN IN
+          </NavLink>
+        ) : (
+          <NavLink className="option" to="/signup">
+            SIGN UP
+          </NavLink>
+        )}
         <CartIcon />
       </div>
       <CartDropdown />
-    </div>
+    </nav>
   )
 }
 
